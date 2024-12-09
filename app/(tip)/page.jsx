@@ -1,10 +1,10 @@
 import Image from "next/image";
 import React from "react";
 import { FaArrowAltCircleDown, FaArrowDown } from "react-icons/fa";
-import { Jaro } from "next/font/google";
+import { Roboto } from "next/font/google";
 
 
-const jaro = Jaro({
+const roboto = Roboto({
   subsets: ["latin"],
   weight: "400",
 });
@@ -12,18 +12,18 @@ const jaro = Jaro({
 const page = () => {
   return (
     <main className="bg-green-500 ">
-      <div className=" flex justify-center items-center gap-20 bg-black">
+      <div className=" flex flex-col md:flex-row justify-center items-center gap-10 md:gap-20 bg-black">
         <Image
           src="/tipblack.jpg"
           alt="TipNGoal Prediction"
-          width="800"
-          height="100"
-          className=""
+          width={800}
+          height={100}
+          className="w-auto h-auto"
         />
         <div>
-          <p className="text-white font-bold flex-wrap w-[70rem] text-2xl mb-5 p-2">
+          <p className="text-white font-bold text-justify text-xl mb-5 p-2 font-sans">
             <span
-              className={`text-7xl font-extrabold text-green-500 ${jaro.className}`}>
+              className={`text-7xl font-extrabold text-green-500 `}>
               TIPNGOAL 
             </span>
              is the ultimate prediction app designed to give you the surest picks
