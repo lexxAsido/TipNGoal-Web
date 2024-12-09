@@ -12,22 +12,21 @@ const jaro = Jaro({
 const page = () => {
   return (
     <main className="bg-green-500 ">
-      <div className=" flex justify-center items-center gap-20 bg-black">
+      <div className=" flex justify-center items-center gap-18 bg-black">
         <Image
           src="/tipblack.jpg"
           alt="TipNGoal Prediction"
           width="800"
           height="100"
-          className="mr-28"
+          className="mr-20"
         />
         <div className=" ">
           <p className="text-white font-bold flex-wrap w-[70rem] text-2xl mb-5">
             <span
-              className={`text-7xl font-extrabold text-green-500 ${jaro.className}`}
-            >
-              TIPNGOAL
+              className={`text-7xl font-extrabold text-green-500 ${jaro.className}`}>
+              TIPNGOAL 
             </span>
-            is the ultimate prediction app designed to give you the surest picks
+             is the ultimate prediction app designed to give you the surest picks
             and daily insights to help you maximize your winnings on your
             favorite betting platforms. Whether you're looking for accurate
             match predictions, game stats, or expert betting tips, TipNGoal has
@@ -67,7 +66,7 @@ const page = () => {
         </div>
       </div>
       
-        <h2 className="text-center font-extrabold text-5xl text-white border-b-4 p-2 border-black ">FEATURES</h2>
+        <h2 className="text-center font-extrabold text-5xl text-white border-b-4 p-2 border-white ">FEATURES</h2>
       <div className="flex justify-center items-center gap-5">
         <div className="flex">
 
