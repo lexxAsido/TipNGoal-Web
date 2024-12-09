@@ -12,16 +12,16 @@ const jaro = Jaro({
 const page = () => {
   return (
     <main className="bg-green-500 ">
-      <div className=" flex justify-center items-center gap-18 bg-black">
+      <div className=" flex justify-center items-center gap-20 bg-black">
         <Image
           src="/tipblack.jpg"
           alt="TipNGoal Prediction"
           width="800"
           height="100"
-          className="mr-20"
+          className=""
         />
-        <div className=" ">
-          <p className="text-white font-bold flex-wrap w-[70rem] text-2xl mb-5">
+        <div>
+          <p className="text-white font-bold flex-wrap w-[70rem] text-2xl mb-5 p-2">
             <span
               className={`text-7xl font-extrabold text-green-500 ${jaro.className}`}>
               TIPNGOAL 
