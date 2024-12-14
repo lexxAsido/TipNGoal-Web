@@ -2,7 +2,9 @@ import Image from "next/image";
 import React from "react";
 import { FaArrowAltCircleDown, FaArrowDown } from "react-icons/fa";
 import { Roboto } from "next/font/google";
-
+import Link from "next/link";
+import { IoIosFootball } from "react-icons/io";
+import { BiFootball } from "react-icons/bi";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -11,62 +13,72 @@ const roboto = Roboto({
 
 const page = () => {
   return (
-    <main className="bg-green-500 ">
-      <div className=" flex flex-col md:flex-row justify-center items-center gap-10 md:gap-20 bg-black">
+    <main className="bg-black">
+      <div className=" flex flex-col lg:flex-row justify-center items-center gap-10 md:gap-20  mx-5">
         <Image
           src="/tipblack.jpg"
           alt="TipNGoal Prediction"
           width={800}
           height={100}
-          className="w-auto h-auto"
+          className="w-auto h-auto "
         />
         <div>
-          <p className="text-white font-bold text-justify text-xl mb-5 p-2 font-sans">
+          <p className="text-white font-bold text-justify text-xl mb-5 p-5 font-sans max-md:text-sm w-auto">
+          <span className="flex items-center italic">
             <span
-              className={`text-7xl font-extrabold text-green-500 `}>
-              TIPNGOAL 
+              className={`text-7xl font-extrabold  max-md:text-2xl`}>
+              TIP<span className="text-green-500">N</span>G
             </span>
+               <span className="flex items-center text-7xl max-md:text-2xl ">
+                <BiFootball className="animate-spin "/>AL
+                </span>
+                </span>
              is the ultimate prediction app designed to give you the surest picks
             and daily insights to help you maximize your winnings on your
             favorite betting platforms. Whether you're looking for accurate
-            match predictions, game stats, or expert betting tips, TipNGoal has
+            match predictions, game stats, or expert betting tips
             you covered. With a focus on precision, reliability, and ease of
             use, our app is your go-to companion for smarter betting decisions.
             Trust TipNGoal to deliver the winning edge you need for success!
           </p>
 
-          <div>
-            <p className="text-green-500 text-4xl font-bold text-center">
+          <div className="w-auto">
+            <p className="text-green-500 text-4xl font-bold text-center max-md:text-xl">
               Now Available on Play Store and App Store
             </p>
-            <span className="flex items-center mt-5 justify-center gap-2">
-              <p className="text-white font-bold">
+            <span className="flex items-center mt-5 justify-center md:gap-2">
+              <p className="text-white font-bold max-md:text-sm">
                 Click image below to download the app
               </p>
-              <FaArrowAltCircleDown className="text-green-500 text-2xl" />
+              <FaArrowAltCircleDown className="text-green-500 text-2xl max-md:text-sm" />
             </span>
+
             <span className="flex gap-5 justify-center">
+              <Link href={"#"}>
               <Image
                 src="/app-store2.png"
                 alt="App store"
                 width="200"
                 height="100"
-                className="bg-white border-green-500 border-4 h-20 hover:scale-110"
-              />
+                className="bg-white border-green-500 border-4 h-20 hover:scale-110 max-md:w-auto max-md:h-auto"
+                />
+              </Link>
 
+              <Link href={"#"}>
               <Image
                 src="/google-play-badge.png"
                 alt="Play store"
                 width="200"
                 height="200"
-                className="bg-white border-green-500 border-4 h-20 hover:scale-110"
-              />
+                className="bg-white border-green-500 border-4 h-20 hover:scale-110 max-md:w-auto max-md:h-auto"
+                />
+              </Link>
             </span>
           </div>
         </div>
       </div>
       
-        <h2 className="text-center font-extrabold text-5xl text-white border-b-4 p-2 border-white ">FEATURES</h2>
+        {/* <h2 className="text-center font-extrabold text-5xl text-white border-b-4 p-2 border-white ">FEATURES</h2>
       <div className="flex justify-center items-center gap-5">
         <div className="flex">
 
@@ -120,7 +132,7 @@ const page = () => {
           <FaArrowDown className="text-white"/>
           <h2 >Sport Predictions With 99% Win Rate</h2>
         </div>
-            </div>
+            </div> */}
       
       
       

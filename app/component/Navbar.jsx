@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+import { IoIosFootball } from "react-icons/io";
+import { BiFootball } from "react-icons/bi";
 
 const Navbar = () => {
   return (
@@ -16,11 +18,11 @@ const Navbar = () => {
         className='rounded-lg '
         />
         </Link>
-        <h2 className='text-2xl font-bold text-green-500'>TipNGoal</h2>
+        <h2 className='text-4xl font-bold text-white flex items-center max-md:hidden'>TIP<span className="text-green-500">N</span>G<span><BiFootball /></span>AL</h2>
         </div>
 
-        <div className='flex gap-10 font-semibold mr-3 text-green-500 '>
-          <button className=' hover:scale-110 hover:border-b-4 border-white transition-all'>About Us</button>
+        <div className='flex gap-10 font-semibold mr-3 text-green-500 max-lg:hidden '>
+          <button className=' hover:scale-110 hover:border-b-4 border-white transition-all '>About Us</button>
           <button className=' hover:scale-110 hover:border-b-4 border-white transition-all'>Contact</button>
           <button className=' hover:scale-110 hover:border-b-4 border-white transition-all'>Terms of Use</button>
           <button className=' hover:scale-110 hover:border-b-4 border-white transition-all'>Privacy Policy</button>
