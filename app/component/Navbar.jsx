@@ -15,10 +15,10 @@ const Navbar = () => {
         alt="TipNGoal Prediction"
         width="100"
         height="100"
-        className='rounded-lg '
+        className='rounded-lg max-md:w-14'
         />
         </Link>
-        <h2 className='text-4xl font-bold text-white flex items-center max-md:hidden'>TIP<span className="text-green-500">N</span>G<span><BiFootball /></span>AL</h2>
+        <h2 className='text-4xl font-bold text-white flex items-center max-md:text-lg shadow-lg shadow-green-500'>TIP<span className="text-green-500">N</span>G<span><BiFootball /></span>AL</h2>
         </div>
 
         <div className='flex gap-10 font-semibold mr-3 text-green-500 max-lg:hidden '>

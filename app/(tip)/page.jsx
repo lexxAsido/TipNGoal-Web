@@ -22,7 +22,7 @@ const page = () => {
           height={100}
           className="w-auto h-auto "
         />
-        <div>
+        <div className="pb-6">
           <p className="text-white font-bold text-justify text-xl mb-5 p-5 font-sans max-md:text-sm w-auto flex-wrap text-balance">
           <span className="flex items-center italic">
             <span
@@ -53,7 +53,7 @@ const page = () => {
               <FaArrowAltCircleDown className="text-green-500 text-2xl max-md:text-sm" />
             </span>
 
-            <span className="flex gap-5 justify-center">
+            <span className="flex gap-5 justify-center mb-5">
               <Link href={"#"}>
               <Image
                 src="/app-store2.png"

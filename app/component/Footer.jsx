@@ -37,17 +37,17 @@ const Footer = () => {
       </div>
       <div className="flex justify-between items-center px-3 mt-5 max-lg:flex-col ">
         <div className="flex gap-10 font-semibold mr-3 max-md:text-sm max-md:gap-3">
-          <button className=" hover:scale-110 transition-all hover:text-green-500">
-            About Us
+          <button className=" hover:scale-110 transition-all hover:text-green-500"><Link href={"/about"}>About Us</Link>
+            
           </button>
-          <button className=" hover:scale-110 transition-all hover:text-green-500">
-            Contact
+          <button className=" hover:scale-110 transition-all hover:text-green-500"><Link href={"/contact"}>Contact</Link>
+          
           </button>
-          <button className=" hover:scale-110 transition-all hover:text-green-500">
-            Terms of Use
+          <button className=" hover:scale-110 transition-all hover:text-green-500"><Link href={"#"}>Terms</Link>
+          
           </button>
-          <button className=" hover:scale-110 transition-all hover:text-green-500">
-            Privacy Policy
+          <button className=" hover:scale-110 transition-all hover:text-green-500"><Link href={"/privacy"}>Privacy Policy</Link>
+            
           </button>
         </div>
 
@@ -56,7 +56,7 @@ const Footer = () => {
           <h3>TipNgoal Sport Prediction Limited</h3>
         </div>
 
-        <div className="pb-10">
+        <div className="pb-5">
           <div className="flex gap-3 max-md:text-sm">
             <Link href="https://www.instagram.com">
               <div className="icon-container text-[#e6399b]">
