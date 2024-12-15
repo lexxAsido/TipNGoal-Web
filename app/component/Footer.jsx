@@ -11,27 +11,27 @@ import { TbBallFootball } from "react-icons/tb";
 
 const Footer = () => {
   return (
-    <section className="h-[16rem] bg-[#c1c7c3] max-lg:h-auto">
+    <section className="h-[17rem] bg-[#c1c7c3] max-lg:h-auto">
         <h2 className="text-3xl font-bold border-b-4 border-black pt-6 text-center">What We Offer!</h2>
       <div className="flex justify-evenly mt-5 font-bold max-md:flex-col max-md:gap-2">
-        <div className="flex flex-col items-center hover:scale-125 cursor-pointer">
-          <BsFillSafe2Fill className="text-6xl hover:text-green-500 max-md:text-2xl"/>
+        <div className="flex flex-col items-center hover:scale-125 cursor-pointer group">
+          <BsFillSafe2Fill className="text-6xl group-hover:text-green-500 max-md:text-2xl"/>
           <h3>Safe Predictions</h3>
         </div>
-        <div className="flex flex-col items-center hover:scale-125 cursor-pointer">
-            <TbBallFootball className="text-6xl hover:text-green-500 max-md:text-2xl"/>
+        <div className="flex flex-col items-center hover:scale-125 cursor-pointer group">
+            <TbBallFootball className="text-6xl group-hover:text-green-500 max-md:text-2xl"/>
           <h3>Sure Odds</h3>
         </div>
-        <div className="flex flex-col items-center hover:scale-125 cursor-pointer">
-            <BsCashStack className="text-6xl hover:text-green-500 max-md:text-2xl"/>
+        <div className="flex flex-col items-center hover:scale-125 cursor-pointer group">
+            <BsCashStack className="text-6xl group-hover:text-green-500 max-md:text-2xl"/>
           <h3>Daily 5 Odds</h3>
         </div>
-        <div className="flex flex-col items-center hover:scale-125 cursor-pointer">
-             <SiAmazongames className="text-6xl hover:text-green-500 max-md:text-2xl"/>
+        <div className="flex flex-col items-center hover:scale-125 cursor-pointer group">
+             <SiAmazongames className="text-6xl group-hover:text-green-500 max-md:text-2xl"/>
           <h3>Games bookings</h3>
         </div>
-        <div className="flex flex-col items-center hover:scale-125 cursor-pointer">
-        <IoMdFlash  className="text-6xl hover:text-green-500 max-md:text-2xl"/>
+        <div className="flex flex-col items-center hover:scale-125 cursor-pointer group">
+        <IoMdFlash  className="text-6xl group-hover:text-green-500 max-md:text-2xl"/>
           <h3>Livescore Update</h3>
         </div>
       </div>

@@ -22,7 +22,7 @@ const Navbar = () => {
         </div>
 
         <div className='flex gap-10 font-semibold mr-3 text-green-500 max-lg:hidden '>
-          <button className=' hover:scale-110 hover:border-b-4 border-white transition-all '>About Us</button>
+          <button className=' hover:scale-110 hover:border-b-4 border-white transition-all '><Link href={"/about"}>About Us</Link></button>
           <button className=' hover:scale-110 hover:border-b-4 border-white transition-all'>Contact</button>
           <button className=' hover:scale-110 hover:border-b-4 border-white transition-all'>Terms of Use</button>
           <button className=' hover:scale-110 hover:border-b-4 border-white transition-all'>Privacy Policy</button>
