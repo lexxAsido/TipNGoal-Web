@@ -37,16 +37,16 @@ const Footer = () => {
       </div>
       <div className="flex justify-between items-center px-3 mt-5 max-lg:flex-col ">
         <div className="flex gap-10 font-semibold mr-3 max-md:text-sm max-md:gap-3">
-          <button className=" hover:scale-110 transition-all hover:text-green-500"><Link href={"/about"}>About Us</Link>
+          <button className=" hover:scale-110 transition-all hover:text-green-500 underline decoration-double"><Link href={"/about"}>About Us</Link>
             
           </button>
-          <button className=" hover:scale-110 transition-all hover:text-green-500"><Link href={"/contact"}>Contact</Link>
+          <button className=" hover:scale-110 transition-all hover:text-green-500 underline decoration-double"><Link href={"/contact"}>Contact</Link>
           
           </button>
-          <button className=" hover:scale-110 transition-all hover:text-green-500"><Link href={"#"}>Terms</Link>
+          <button className=" hover:scale-110 transition-all hover:text-green-500 underline decoration-double"><Link href={"#"}>Terms</Link>
           
           </button>
-          <button className=" hover:scale-110 transition-all hover:text-green-500"><Link href={"/privacy"}>Privacy Policy</Link>
+          <button className=" hover:scale-110 transition-all hover:text-green-500 underline decoration-double"><Link href={"/privacy"}>Privacy Policy</Link>
             
           </button>
         </div>
