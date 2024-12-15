@@ -56,7 +56,7 @@ const Footer = () => {
           <h3>TipNgoal Sport Prediction Limited</h3>
         </div>
 
-        <div className="">
+        <div className="pb-10">
           <div className="flex gap-3 max-md:text-sm">
             <Link href="https://www.instagram.com">
               <div className="icon-container text-[#e6399b]">

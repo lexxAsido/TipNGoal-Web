@@ -14,8 +14,8 @@ const about = () => {
         />
       </div>
 
-      <div className="text-balance text-2xl max-md:text-lg">
-        <h1 className="font-bold text-center border-b-4 border-green-500 text-5xl mb-5 max-md:text-xl">About Us</h1>
+      <div className="text-balance text-2xl max-md:text-lg shadow-xl shadow-green-500 py-10 px-3 border-green-500 ">
+        <h1 className="font-bold text-center  border-green-500 text-5xl mb-5 max-md:text-xl">About Us</h1>
         <p className="text-balance">
           At <span className="text-green-500">TIPNGOAL</span>  Prediction, we are passionate about helping sports
           enthusiasts and betting fans make informed and confident predictions.

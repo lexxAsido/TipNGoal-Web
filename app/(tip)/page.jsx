@@ -23,7 +23,7 @@ const page = () => {
           className="w-auto h-auto "
         />
         <div>
-          <p className="text-white font-bold text-justify text-xl mb-5 p-5 font-sans max-md:text-sm w-auto flex-wrap">
+          <p className="text-white font-bold text-justify text-xl mb-5 p-5 font-sans max-md:text-sm w-auto flex-wrap text-balance">
           <span className="flex items-center italic">
             <span
               className={`text-7xl font-extrabold  max-md:text-2xl`}>
