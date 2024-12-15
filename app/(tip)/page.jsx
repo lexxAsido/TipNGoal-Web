@@ -43,7 +43,7 @@ const page = () => {
           </p>
 
           <div className="w-auto">
-            <p className="text-green-500 text-4xl font-bold text-center max-md:text-xl">
+            <p className="text-green-500 text-4xl font-bold text-center max-lg:text-xl flex-wrap">
               Now Available on Play Store and App Store
             </p>
             <span className="flex items-center mt-5 justify-center md:gap-2">
@@ -60,7 +60,7 @@ const page = () => {
                 alt="App store"
                 width="200"
                 height="100"
-                className="bg-white border-green-500 border-4 h-20 hover:scale-110 max-md:w-auto max-md:h-auto"
+                className="bg-white border-green-500 border-4 h-20 hover:scale-110 w-auto"
                 />
               </Link>
 
@@ -70,7 +70,7 @@ const page = () => {
                 alt="Play store"
                 width="200"
                 height="200"
-                className="bg-white border-green-500 border-4 h-20 hover:scale-110 max-md:w-auto max-md:h-auto"
+                className="bg-white border-green-500 border-4 h-20 hover:scale-110 w-auto"
                 />
               </Link>
             </span>

@@ -11,7 +11,7 @@ const Navbar = () => {
         <div className='flex items-center gap-2 justify-center '>
           <Link href={"/"}>
         <Image
-        src="/tiplogo.png"
+        src="/tiplogo2.png"
         alt="TipNGoal Prediction"
         width="100"
         height="100"
