@@ -48,7 +48,7 @@ const Navbar = () => {
 
         {/* Navigation Links */}
         {navOpen && (
-          <div className="absolute top-full left-0 w-full bg-green-500/60 font-bold flex flex-col items-center gap-6 p-6  backdrop-blur-md shadow-lg">
+          <div className="absolute top-full left-0 w-full bg-green-500/60 font-bold flex flex-col items-center gap-6 p-6 h-screen backdrop-blur-md shadow-lg">
             <button className="hover:scale-110 hover:border-b-4 border-green-500 transition-all">
               <Link href={"/about"}>About Us</Link>
             </button>
