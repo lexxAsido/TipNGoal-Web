@@ -43,7 +43,7 @@ const Footer = () => {
           <button className=" hover:scale-110 transition-all hover:text-green-500 underline decoration-double"><Link href={"/contact"}>Contact</Link>
           
           </button>
-          <button className=" hover:scale-110 transition-all hover:text-green-500 underline decoration-double"><Link href={"#"}>Terms</Link>
+          <button className=" hover:scale-110 transition-all hover:text-green-500 underline decoration-double"><Link href={"#"}>Disclaimer</Link>
           
           </button>
           <button className=" hover:scale-110 transition-all hover:text-green-500 underline decoration-double"><Link href={"/privacy"}>Privacy Policy</Link>
