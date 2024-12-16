@@ -30,8 +30,9 @@ const Navbar = () => {
         <div className='flex gap-10 font-semibold mr-3 text-green-500 max-lg:hidden '>
           <button className=' hover:scale-110 hover:border-b-4 border-white transition-all '><Link href={"/about"}>About Us</Link></button>
           <button className=' hover:scale-110 hover:border-b-4 border-white transition-all'><Link href={"/contact"}>Contact</Link></button>
-          <button className=' hover:scale-110 hover:border-b-4 border-white transition-all'>Terms of Use</button>
-          <button className=' hover:scale-110 hover:border-b-4 border-white transition-all'>Privacy Policy</button>
+          <button className=' hover:scale-110 hover:border-b-4 border-white transition-all'><Link href={"/terms"}>Terms of Use</Link></button>
+          <button className=' hover:scale-110 hover:border-b-4 border-white transition-all'><Link href={"/privacy"}>Privacy Policy</Link></button>
+          
         </div>
 
         {/* Hamburger Menu Button */}
@@ -48,22 +49,22 @@ const Navbar = () => {
 
         {/* Navigation Links */}
         {navOpen && (
-          <div className="absolute top-full left-0 w-full bg-green-500/60 font-bold flex flex-col items-center gap-6 p-6 h-screen backdrop-blur-md shadow-lg">
-            <button className="hover:scale-110 hover:border-b-4 border-green-500 transition-all">
+          <div className="absolute top-full left-0 w-full bg-green-500/60 font-bold flex flex-col justify-center items-center gap-10 p-6 h-screen backdrop-blur-md shadow-lg">
+            <button className="hover:scale-110 hover:border-b-4 border-white transition-all">
               <Link href={"/about"}>About Us</Link>
             </button>
-            <button className="hover:scale-110 hover:border-b-4 border-green-500 transition-all">
+            <button className="hover:scale-110 hover:border-b-4 border-white transition-all">
               <Link href={"/contact"}>Contact</Link>
             </button>
-            <button className="hover:scale-110 hover:border-b-4 border-green-500 transition-all">
+            <button className="hover:scale-110 hover:border-b-4 border-white transition-all">
               Terms of Use
             </button>
-            <button className="hover:scale-110 hover:border-b-4 border-green-500 transition-all">
+            <button className="hover:scale-110 hover:border-b-4 border-white transition-all">
               Privacy Policy
             </button>
-            <button className="hover:scale-110 hover:border-b-4 border-green-500 transition-all">
-              Disclaimer
-            </button>
+            {/* <button className="hover:scale-110 hover:border-b-4 border-white transition-all">
+            <Link href={"/disclaimer"}>Disclaimer</Link>
+            </button> */}
           </div>
         )}
       </div>

@@ -1,21 +1,22 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const about = () => {
   return (
-    <main className="flex flex-row items-center p-5 gap-5 h-dvh font-sans max-md:flex-col max-md:h-auto m-3">
+    <main className="flex flex-row items-center justify-center p-5 gap-5 h-dvh font-sans max-md:flex-col max-md:h-auto m-3">
       <div>
         <Image
           src="/tip-left.png"
           alt="TipNGoal Prediction"
-          width={800}
+          width={400}
           height={100}
           className="w-auto h-auto "
         />
       </div>
 
-      <div className="text-balance text-2xl max-md:text-lg shadow-xl shadow-green-500 py-10 px-3 border-green-500 ">
-        <h1 className="font-bold text-center  border-green-500 text-5xl mb-5 max-md:text-xl">About Us</h1>
+      <div className="text-balance  max-md:text-lg shadow-xl max-w-2xl shadow-green-500 py-10 px-3 border-green-500 ">
+        <h1 className="font-bold text-center  text-green-500 text-3xl mb-5 max-md:text-lg">About Us</h1>
         <p className="text-balance">
           At <span className="text-green-500">TIPNGOAL</span>  Prediction, we are passionate about helping sports
           enthusiasts and betting fans make informed and confident predictions.
@@ -54,6 +55,19 @@ const about = () => {
           TipNgoal is here to guide you every step of the way. Join us today,
           and let’s turn your passion for sports into a rewarding experience!
         </p>
+        <p className="text-center font-bold mt-5 max-md:text-sm">The best bet you can make is on your own discipline. Bet responsibly!</p>
+
+        <div className="flex justify-center">
+        <Link href={"/"}>
+            <Image
+              src="/tiplogo2.png"
+              alt="TipNGoal Prediction"
+              width="50"
+              height="50"
+              className="rounded-lg max-lg:w-14 bg-black"
+              />
+          </Link>
+              </div>
       </div>
     </main>
   );
