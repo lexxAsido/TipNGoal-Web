@@ -9,7 +9,7 @@ const about = () => {
         <Image
           src="/tip-left.png"
           alt="TipNGoal Prediction"
-          width={400}
+          width={300}
           height={100}
           className="w-auto h-auto "
         />

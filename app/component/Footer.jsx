@@ -27,8 +27,8 @@ const Footer = () => {
           <h3 className="max-md:text-sm">Daily 5 Odds</h3>
         </div>
         <div className="flex flex-col items-center hover:scale-125 cursor-pointer group">
-             <SiAmazongames className="text-6xl group-hover:text-green-500 max-md:text-2xl"/>
-          <h3 className="max-md:text-sm">Games bookings</h3>
+             <SiAmazongames className="text-6xl group-hover:text-green-500 max-md:text-3xl"/>
+          <h3 className="max-md:text-sm">Games Bookings</h3>
         </div>
         <div className="flex flex-col items-center hover:scale-125 cursor-pointer group">
         <IoMdFlash  className="text-6xl group-hover:text-green-500 max-md:text-2xl"/>

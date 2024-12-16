@@ -9,6 +9,8 @@ import { IoMdClose } from 'react-icons/io';
 const Navbar = () => {
   const [navOpen, setNavOpen] = useState(false);
 
+  const handleNavClose = () => setNavOpen(false);
+
   return (
     <section className="relative font-sans">
       <div className="p-2 flex items-center justify-between bg-black">
@@ -28,11 +30,18 @@ const Navbar = () => {
         </div>
 
         <div className='flex gap-10 font-semibold mr-3 text-green-500 max-lg:hidden '>
-          <button className=' hover:scale-110 hover:border-b-4 border-white transition-all '><Link href={"/about"}>About Us</Link></button>
-          <button className=' hover:scale-110 hover:border-b-4 border-white transition-all'><Link href={"/contact"}>Contact</Link></button>
-          <button className=' hover:scale-110 hover:border-b-4 border-white transition-all'><Link href={"/terms"}>Terms of Use</Link></button>
-          <button className=' hover:scale-110 hover:border-b-4 border-white transition-all'><Link href={"/privacy"}>Privacy Policy</Link></button>
-          
+          <button className='hover:scale-110 hover:border-b-4 border-white transition-all'>
+            <Link href={"/about"}>About Us</Link>
+          </button>
+          <button className='hover:scale-110 hover:border-b-4 border-white transition-all'>
+            <Link href={"/contact"}>Contact</Link>
+          </button>
+          <button className='hover:scale-110 hover:border-b-4 border-white transition-all'>
+            <Link href={"/terms"}>Terms of Use</Link>
+          </button>
+          <button className='hover:scale-110 hover:border-b-4 border-white transition-all'>
+            <Link href={"/privacy"}>Privacy Policy</Link>
+          </button>
         </div>
 
         {/* Hamburger Menu Button */}
@@ -50,21 +59,30 @@ const Navbar = () => {
         {/* Navigation Links */}
         {navOpen && (
           <div className="absolute top-full left-0 w-full bg-green-500/60 font-bold flex flex-col justify-center items-center gap-10 p-6 h-screen backdrop-blur-md shadow-lg">
-            <button className="hover:scale-110 hover:border-b-4 border-white transition-all">
+            <button
+              className="hover:scale-110 hover:border-b-4 border-white transition-all"
+              onClick={handleNavClose}
+            >
               <Link href={"/about"}>About Us</Link>
             </button>
-            <button className="hover:scale-110 hover:border-b-4 border-white transition-all">
+            <button
+              className="hover:scale-110 hover:border-b-4 border-white transition-all"
+              onClick={handleNavClose}
+            >
               <Link href={"/contact"}>Contact</Link>
             </button>
-            <button className="hover:scale-110 hover:border-b-4 border-white transition-all">
+            <button
+              className="hover:scale-110 hover:border-b-4 border-white transition-all"
+              onClick={handleNavClose}
+            >
               <Link href={"/terms"}>Terms of Use</Link>
             </button>
-            <button className="hover:scale-110 hover:border-b-4 border-white transition-all">
-            <Link href={"/privacy"}>Privacy Policy</Link>
+            <button
+              className="hover:scale-110 hover:border-b-4 border-white transition-all"
+              onClick={handleNavClose}
+            >
+              <Link href={"/privacy"}>Privacy Policy</Link>
             </button>
-            {/* <button className="hover:scale-110 hover:border-b-4 border-white transition-all">
-            <Link href={"/disclaimer"}>Disclaimer</Link>
-            </button> */}
           </div>
         )}
       </div>
