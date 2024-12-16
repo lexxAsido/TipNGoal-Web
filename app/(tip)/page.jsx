@@ -33,7 +33,7 @@ const page = () => {
                 <BiFootball className="animate-spin "/>AL
                 </span>
                 </span>
-             is the ultimate prediction app designed to give you the surest picks
+             An ultimate prediction app designed to give you the surest picks
             and daily insights to help you maximize your winnings on your
             favorite betting platforms. Whether you're looking for accurate
             match predictions, game stats, or expert betting tips

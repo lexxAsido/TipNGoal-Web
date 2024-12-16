@@ -11,28 +11,28 @@ import { TbBallFootball } from "react-icons/tb";
 
 const Footer = () => {
   return (
-    <section className="h-[17rem] bg-[#c1c7c3] max-lg:h-auto">
-        <h2 className="text-3xl font-bold border-b-4 border-black pt-6 text-center">What We Offer!</h2>
+    <section className="h-[17rem] bg-[#c1c7c3] max-lg:h-auto font-sans">
+        <h2 className="text-3xl font-bold border-b-4 border-black pt-6 text-center max-lg:text-md">What We Offer!</h2>
       <div className="flex justify-evenly mt-5 font-bold max-md:flex-col max-md:gap-2">
         <div className="flex flex-col items-center hover:scale-125 cursor-pointer group">
           <BsFillSafe2Fill className="text-6xl group-hover:text-green-500 max-md:text-2xl"/>
-          <h3>Safe Predictions</h3>
+          <h3 className="max-md:text-sm">Safe Predictions</h3>
         </div>
         <div className="flex flex-col items-center hover:scale-125 cursor-pointer group">
             <TbBallFootball className="text-6xl group-hover:text-green-500 max-md:text-2xl"/>
-          <h3>Sure Odds</h3>
+          <h3 className="max-md:text-sm">Sure Odds</h3>
         </div>
         <div className="flex flex-col items-center hover:scale-125 cursor-pointer group">
             <BsCashStack className="text-6xl group-hover:text-green-500 max-md:text-2xl"/>
-          <h3>Daily 5 Odds</h3>
+          <h3 className="max-md:text-sm">Daily 5 Odds</h3>
         </div>
         <div className="flex flex-col items-center hover:scale-125 cursor-pointer group">
              <SiAmazongames className="text-6xl group-hover:text-green-500 max-md:text-2xl"/>
-          <h3>Games bookings</h3>
+          <h3 className="max-md:text-sm">Games bookings</h3>
         </div>
         <div className="flex flex-col items-center hover:scale-125 cursor-pointer group">
         <IoMdFlash  className="text-6xl group-hover:text-green-500 max-md:text-2xl"/>
-          <h3>Livescore Update</h3>
+          <h3 className="max-md:text-sm">Livescore Update</h3>
         </div>
       </div>
       <div className="flex justify-between items-center px-3 mt-5 max-lg:flex-col ">
@@ -51,7 +51,7 @@ const Footer = () => {
           </button>
         </div>
 
-        <div className="flex items-center font-semibold gap-2 max-md:text-sm">
+        <div className="flex items-center font-semibold gap-2 max-md:text-sm ">
           <FaCopyright className="text-2xl max-md:text-sm" />
           <h3>TipNgoal Sport Prediction Limited</h3>
         </div>

@@ -4,7 +4,7 @@ import React from "react";
 
 const about = () => {
   return (
-    <main className="flex flex-row items-center justify-center p-5 gap-5 h-dvh font-sans max-md:flex-col max-md:h-auto m-3">
+    <main className="flex flex-row items-center justify-center p-5 gap-5 h-dvh max-md:flex-col max-md:h-auto m-3 font-sans ">
       <div>
         <Image
           src="/tip-left.png"
@@ -15,7 +15,7 @@ const about = () => {
         />
       </div>
 
-      <div className="text-balance  max-md:text-lg shadow-xl max-w-2xl shadow-green-500 py-10 px-3 border-green-500 ">
+      <div className="text-balance  max-md:text-sm shadow-xl max-w-2xl shadow-green-500 py-10 px-3 border-green-500 ">
         <h1 className="font-bold text-center  text-green-500 text-3xl mb-5 max-md:text-lg">About Us</h1>
         <p className="text-balance">
           At <span className="text-green-500">TIPNGOAL</span>  Prediction, we are passionate about helping sports

@@ -10,7 +10,7 @@ const Navbar = () => {
   const [navOpen, setNavOpen] = useState(false);
 
   return (
-    <section className="relative">
+    <section className="relative font-sans">
       <div className="p-2 flex items-center justify-between bg-black">
         <div className="flex items-center gap-2 justify-center">
           <Link href={"/"}>
@@ -57,10 +57,10 @@ const Navbar = () => {
               <Link href={"/contact"}>Contact</Link>
             </button>
             <button className="hover:scale-110 hover:border-b-4 border-white transition-all">
-              Terms of Use
+              <Link href={"/terms"}>Terms of Use</Link>
             </button>
             <button className="hover:scale-110 hover:border-b-4 border-white transition-all">
-              Privacy Policy
+            <Link href={"/privacy"}>Privacy Policy</Link>
             </button>
             {/* <button className="hover:scale-110 hover:border-b-4 border-white transition-all">
             <Link href={"/disclaimer"}>Disclaimer</Link>

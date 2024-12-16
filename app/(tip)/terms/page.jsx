@@ -4,7 +4,7 @@ import React from 'react';
 
 const page = () => {
   return (
-    <section className="bg-gray-100 py-12 px-4 flex justify-center items-center min-h-screen flex-row max-md:flex-col md:gap-10">
+    <section className="bg-gray-100 py-12 px-4 flex justify-center items-center min-h-screen flex-row max-md:flex-col md:gap-10 max-md:text-sm font-sans">
         <div>
         <Image
           src="/tip2-portrait.png"
@@ -40,7 +40,7 @@ const page = () => {
         <li>Know When to Stop: Recognize when it’s time to walk away and seek help if gambling starts affecting your personal or financial life.</li>
       </ul>
         <p>If you or someone you know is struggling with gambling, please reach out to a trusted organization or helpline in your area for support. Betting responsibly ensures that the experience remains enjoyable and within your control.</p>
-      <p className='font-bold text-center max-md:text-sm'>Luck is fleeting, but responsibility lasts. Gamble wisely!</p>
+      <p className='font-bold text-center max-md:text-sm mt-4'>Luck is fleeting, but responsibility lasts. Gamble wisely!</p>
       <div className="flex justify-center">
         <Link href={"/"}>
             <Image
