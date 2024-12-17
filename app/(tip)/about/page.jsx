@@ -1,21 +1,43 @@
+"use client"
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { motion } from "framer-motion";
 
 const about = () => {
   return (
-    <main className="flex flex-row items-center justify-center p-5 gap-5 h-dvh max-md:flex-col max-md:h-auto m-3 font-sans ">
-      <div>
+    <>
+
+    <main className={`flex flex-row items-center justify-center p-5 gap-5 h-dvh max-md:flex-col max-md:h-auto m-3 font-sans`}>
+      <motion.div
+       initial={{ opacity:0, scale: 0}}
+       animate={{ opacity:1, scale: 1}}
+       transition={{
+           type: "spring",
+           stiffness: 125,
+           delay: 0.1,
+           duration:0.7
+       }}
+      >
         <Image
           src="/tip-left.png"
           alt="TipNGoal Prediction"
           width={300}
           height={100}
           className="w-auto h-auto "
-        />
-      </div>
+          />
+      </motion.div>
 
-      <div className="text-balance  max-md:text-sm shadow-xl max-w-2xl shadow-green-500 py-10 px-3 border-green-500 ">
+      <motion.div className="text-balance  max-md:text-sm shadow-lg max-w-2xl shadow-green-500 py-10 px-3 border-green-500 bg-white"
+       initial={{ opacity:0, scale: 0}}
+       animate={{ opacity:1, scale: 1}}
+       transition={{
+           type: "tween",
+           stiffness: 125,
+           delay: 0.2,
+           duration:0.8
+       }}
+      >
         <h1 className="font-bold text-center  text-green-500 text-3xl mb-5 max-md:text-lg">About Us</h1>
         <p className="text-balance">
           At <span className="text-green-500">TIPNGOAL</span>  Prediction, we are passionate about helping sports
@@ -68,8 +90,9 @@ const about = () => {
               />
           </Link>
               </div>
-      </div>
+      </motion.div>
     </main>
+              </>
   );
 };
 

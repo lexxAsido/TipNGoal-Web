@@ -8,10 +8,20 @@ import { BsFillSafe2Fill } from "react-icons/bs";
 import { SiAmazongames } from "react-icons/si";
 import { IoMdFlash } from "react-icons/io";
 import { TbBallFootball } from "react-icons/tb";
+import { motion } from "framer-motion";
 
 const Footer = () => {
   return (
-    <section className="h-[17rem] bg-[#c1c7c3] max-lg:h-auto font-sans">
+    <motion.section className="h-[17rem] bg-[#c1c7c3] max-lg:h-auto font-sans"
+    initial={{ opacity: 0, scaleY:0 }}
+     animate={{ opacity: 1, scaleY:1}}
+     transition={{
+      type: "spring",
+      stiffness: 125,
+      delay: 0.2,
+      duration:1.0
+  }}
+    >
         <h2 className="text-3xl font-bold border-b-4 border-black pt-6 text-center max-lg:text-md">What We Offer!</h2>
       <div className="flex justify-evenly mt-5 font-bold max-md:flex-col max-md:gap-2">
         <div className="flex flex-col items-center hover:scale-125 cursor-pointer group">
@@ -135,7 +145,7 @@ const Footer = () => {
   }
 `}</style>
 
-    </section>
+    </motion.section>
   );
 };
 

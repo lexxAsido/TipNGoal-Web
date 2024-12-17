@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import { BiFootball } from "react-icons/bi";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoMdClose } from 'react-icons/io';
+import { motion } from "framer-motion";
 
 const Navbar = () => {
   const [navOpen, setNavOpen] = useState(false);
@@ -13,7 +14,10 @@ const Navbar = () => {
 
   return (
     <section className="relative font-sans">
-      <div className="p-2 flex items-center justify-between bg-black">
+      <motion.div className="p-2 flex items-center justify-between bg-black"
+      initial={{ y: -50, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      >
         <div className="flex items-center gap-2 justify-center">
           <Link href={"/"}>
             <Image
@@ -87,7 +91,7 @@ const Navbar = () => {
             </button>
           </div>
         )}
-      </div>
+      </motion.div>
     </section>
   );
 };

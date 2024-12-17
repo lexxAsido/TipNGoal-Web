@@ -1,13 +1,24 @@
+"use client"
 import React from 'react';
 import { FaCopyright, FaInstagram, FaSquareXTwitter } from "react-icons/fa6";
 import { FaWhatsapp } from "react-icons/fa";
 import Link from 'next/link';
 import Image from 'next/image';
+import { motion } from "framer-motion";
 
 const contact = () => {
   return (
     <section className="bg-gray-100 py-12 px-4 flex justify-center items-center min-h-screen flex-row max-md:flex-col md:gap-10">
-      <div>
+      <motion.div
+      initial={{ opacity:0, scale: 0}}
+      animate={{ opacity:1, scale: 1}}
+      transition={{
+          type: "spring",
+          stiffness: 125,
+          delay: 0.1,
+          duration:0.7
+      }}
+      >
         <Image
           src="/signup.png"
           alt="TipNGoal Prediction"
@@ -15,8 +26,18 @@ const contact = () => {
           height={200}
           className="w-auto h-auto "
         />
-      </div>
-      <div className="bg-white rounded-lg shadow-lg p-8 max-w-2xl w-full shadow-green-500 mt-20  border-green-500 ">
+      </motion.div>
+
+      <motion.div className="bg-white rounded-lg shadow-lg p-8 max-w-2xl w-full shadow-green-500 mt-20  border-green-500"
+      initial={{ opacity:0, scale: 0}}
+      animate={{ opacity:1, scale: 1}}
+      transition={{
+          type: "tween",
+          stiffness: 125,
+          delay: 0.2,
+          duration:0.8
+      }}
+      >
         <h2 className="text-3xl font-bold text-center mb-8 text-green-500 max-md:text-lg">Contact Us</h2>
         <p className="text-center mb-4 font-semibold max-md:text-sm">
         Have questions, feedback, or inquiries/Advert? We'd love to hear from you! At TipNgoal Prediction, our team
@@ -70,7 +91,7 @@ const contact = () => {
           </div>
           <p className="mt-4 max-md:text-sm">We look forward to assisting you!</p>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

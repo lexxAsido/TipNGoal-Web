@@ -1,11 +1,22 @@
+"use client"
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+import { motion } from "framer-motion";
 
 const Privacy = () => {
   return (
     <section className="bg-gray-100 py-12 px-4 flex justify-center items-center min-h-screen flex-row max-md:flex-col md:gap-10 font-sans">
-      <div>
+      <motion.div
+      initial={{ opacity:0, scale: 0}}
+      animate={{ opacity:1, scale: 1}}
+      transition={{
+          type: "spring",
+          stiffness: 125,
+          delay: 0.1,
+          duration:0.7
+      }}
+      >
         <Image
           src="/live.png"
           alt="TipNGoal Prediction"
@@ -13,9 +24,18 @@ const Privacy = () => {
           height={100}
           className="w-auto h-auto"
         />
-      </div>
+      </motion.div>
 
-      <div className="bg-white rounded-lg shadow-lg p-8 max-w-2xl w-full shadow-green-500 mt-20 border border-green-500">
+      <motion.div className="bg-white rounded-lg shadow-lg p-8 max-w-2xl w-full shadow-green-500 mt-20 border border-green-500"
+       initial={{ opacity:0, scale: 0}}
+       animate={{ opacity:1, scale: 1}}
+       transition={{
+           type: "tween",
+           stiffness: 125,
+           delay: 0.2,
+           duration:0.8
+       }}
+      >
         <h2 className="text-3xl font-bold text-center mb-8 text-green-500 max-md:text-lg">
           Privacy Policy
         </h2>
@@ -107,7 +127,7 @@ const Privacy = () => {
             />
           </Link>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };
