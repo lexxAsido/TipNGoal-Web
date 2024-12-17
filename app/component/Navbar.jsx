@@ -23,6 +23,8 @@ const Navbar = () => {
               height="100"
               className="rounded-lg max-lg:w-14"
             />
+          </Link>
+          <Link href={"/"}>
           <h2 className="text-4xl font-bold text-white flex items-center max-lg:text-lg shadow-lg shadow-green-500">
             TIP<span className="text-green-500">N</span>G<span><BiFootball /></span>AL
           </h2>
