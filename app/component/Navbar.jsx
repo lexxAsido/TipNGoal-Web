@@ -14,7 +14,7 @@ const Navbar = () => {
 
   return (
     <section className="font-sans ">
-      <motion.div className="p-2 flex items-center justify-between bg-black fixed w-full"
+      <motion.div className="p-2 flex items-center justify-between bg-black"
       initial={{ y: -50, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       >
