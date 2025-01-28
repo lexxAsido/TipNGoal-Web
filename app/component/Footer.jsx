@@ -130,7 +130,7 @@ const Footer = () => {
     z-index: 1;
   }
 
-  /* Responsive styles for medium screens and below */
+  
   @media (max-width: 768px) {
     .icon-container {
       width: 2.5rem;
@@ -140,7 +140,7 @@ const Footer = () => {
     }
 
     .icon-container:hover {
-      transform: scale(1.1); /* Slightly less scale on smaller screens */
+      transform: scale(1.1); 
     }
   }
 `}</style>

@@ -16,7 +16,7 @@ const page = () => {
     <main className="bg-black">
       <div className=" flex flex-col lg:flex-row justify-center items-center gap-10 md:gap-20  mx-5">
         <Image
-          src="/tipblack.jpg"
+          src="/tipNgoal.jpg"
           alt="TipNGoal Prediction"
           width={800}
           height={100}

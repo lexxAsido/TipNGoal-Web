@@ -21,7 +21,7 @@ const page = () => {
           src="/tip2-portrait.png"
           alt="TipNGoal Prediction"
           width={300}
-          height={100}
+          height={200}
           className="w-auto h-auto "
         />
       </motion.div>

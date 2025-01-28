@@ -18,9 +18,9 @@ const Privacy = () => {
       }}
       >
         <Image
-          src="/live.png"
+          src="/tipnews.png"
           alt="TipNGoal Prediction"
-          width={300}
+          width={400}
           height={100}
           className="w-auto h-auto"
         />

@@ -20,9 +20,9 @@ const contact = () => {
       }}
       >
         <Image
-          src="/signup.png"
+          src="/contact.png"
           alt="TipNGoal Prediction"
-          width={900}
+          width={300}
           height={200}
           className="w-auto h-auto "
         />

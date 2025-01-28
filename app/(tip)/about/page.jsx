@@ -22,8 +22,8 @@ const about = () => {
         <Image
           src="/tip-left.png"
           alt="TipNGoal Prediction"
-          width={300}
-          height={100}
+          width={400}
+          height={200}
           className="w-auto h-auto "
           />
       </motion.div>
