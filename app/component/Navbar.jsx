@@ -13,8 +13,8 @@ const Navbar = () => {
   const handleNavClose = () => setNavOpen(false);
 
   return (
-    <section className="relative font-sans">
-      <motion.div className="p-2 flex items-center justify-between bg-black"
+    <section className="font-sans ">
+      <motion.div className="p-2 flex items-center justify-between bg-black fixed w-full"
       initial={{ y: -50, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       >

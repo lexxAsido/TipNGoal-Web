@@ -5,6 +5,7 @@ import { Roboto } from "next/font/google";
 import Link from "next/link";
 import { IoIosFootball } from "react-icons/io";
 import { BiFootball } from "react-icons/bi";
+import { motion } from "framer-motion";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -16,7 +17,7 @@ const page = () => {
     <main className="bg-black">
       <div className=" flex flex-col lg:flex-row justify-center items-center gap-10 md:gap-20  mx-5">
         <Image
-          src="/tipNgoal.jpg"
+          src="/tipNgoal2.jpg"
           alt="TipNGoal Prediction"
           width={800}
           height={100}
