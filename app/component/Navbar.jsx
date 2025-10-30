@@ -1,98 +1,103 @@
 "use client";
-import Image from 'next/image';
-import Link from 'next/link';
-import React, { useState } from 'react';
+import Image from "next/image";
+import Link from "next/link";
+import React, { useState } from "react";
 import { BiFootball } from "react-icons/bi";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { IoMdClose } from 'react-icons/io';
+import { IoMdClose } from "react-icons/io";
 import { motion } from "framer-motion";
 
 const Navbar = () => {
   const [navOpen, setNavOpen] = useState(false);
-
   const handleNavClose = () => setNavOpen(false);
 
   return (
-    <section className="font-sans ">
-      <motion.div className="p-2 flex items-center justify-between bg-black"
-      initial={{ y: -50, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      >
-        <div className="flex items-center gap-2 justify-center">
-          <Link href={"/"}>
-            <Image
-              src="/tiplogo2.png"
-              alt="TipNGoal Prediction"
-              width="100"
-              height="100"
-              className="rounded-lg max-lg:w-14"
-            />
-          </Link>
-          <Link href={"/"}>
-          <h2 className="text-4xl font-bold text-white flex items-center max-lg:text-lg shadow-lg shadow-green-500">
-            TIP<span className="text-green-500">N</span>G<span><BiFootball /></span>AL
-          </h2>
-          </Link>
-        </div>
-
-        <div className='flex gap-10 font-semibold mr-3 text-green-500 max-lg:hidden '>
-          <button className='hover:scale-110 hover:border-b-4 border-white transition-all'>
-            <Link href={"/about"}>About Us</Link>
-          </button>
-          <button className='hover:scale-110 hover:border-b-4 border-white transition-all'>
-            <Link href={"/contact"}>Contact</Link>
-          </button>
-          <button className='hover:scale-110 hover:border-b-4 border-white transition-all'>
-            <Link href={"/terms"}>Terms of Use</Link>
-          </button>
-          <button className='hover:scale-110 hover:border-b-4 border-white transition-all'>
-            <Link href={"/privacy"}>Privacy Policy</Link>
-          </button>
-        </div>
-
-        {/* Hamburger Menu Button */}
-        <button
-          className="text-green-500 text-3xl lg:hidden"
-          onClick={() => setNavOpen(!navOpen)}
+    <>
+      {/* Navbar */}
+      <nav className="fixed top-4 left-1/2 -translate-x-1/2 w-[95%] z-50 font-sans backdrop-blur-lg  border border-green-500/30 rounded-3xl shadow-[0_0_20px_rgba(0,255,0,0.2)]">
+        <motion.div
+          className="max-w-7xl mx-auto px-5 md:py-4 flex items-center justify-between"
+          initial={{ y: -50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
         >
-          {navOpen ? (
-            <IoMdClose className="text-5xl text-green-500" />
-          ) : (
-            <GiHamburgerMenu className="text-4xl text-green-500" />
-          )}
-        </button>
+          {/* Logo Section */}
+          <div className="flex items-center gap-3">
+            <Link href={"/"}>
+              <Image
+                src="/tiplogo2.png"
+                alt="TipNGoal Prediction"
+                width={50}
+                height={50}
+                className="rounded-lg"
+              />
+            </Link>
 
-        {/* Navigation Links */}
-        {navOpen && (
-          <div className="absolute top-full left-0 w-full bg-green-500/60 font-bold flex flex-col justify-center items-center gap-10 p-6 h-screen backdrop-blur-md shadow-lg">
-            <button
-              className="hover:scale-110 hover:border-b-4 border-white transition-all"
-              onClick={handleNavClose}
-            >
-              <Link href={"/about"}>About Us</Link>
-            </button>
-            <button
-              className="hover:scale-110 hover:border-b-4 border-white transition-all"
-              onClick={handleNavClose}
-            >
-              <Link href={"/contact"}>Contact</Link>
-            </button>
-            <button
-              className="hover:scale-110 hover:border-b-4 border-white transition-all"
-              onClick={handleNavClose}
-            >
-              <Link href={"/terms"}>Terms of Use</Link>
-            </button>
-            <button
-              className="hover:scale-110 hover:border-b-4 border-white transition-all"
-              onClick={handleNavClose}
-            >
-              <Link href={"/privacy"}>Privacy Policy</Link>
-            </button>
+            <Link href={"/"}>
+              <h2 className="text-2xl font-extrabold flex items-center max-md:text-sm text-white tracking-wide">
+                TIP<span className="text-green-500">N</span>
+                {/* <span className="flex items-center">
+                  <BiFootball className="mx-1 text-green-500 animate-spin-slow" />
+                </span> */}
+                GOAL
+              </h2>
+            </Link>
           </div>
+
+          {/* Desktop Links */}
+          <div className="hidden lg:flex gap-8 font-medium text-gray-300">
+            <Link href="/about" className="hover:text-green-400 transition-colors duration-200">
+              About Us
+            </Link>
+            <Link href="/contact" className="hover:text-green-400 transition-colors duration-200">
+              Contact
+            </Link>
+            <Link href="/terms" className="hover:text-green-400 transition-colors duration-200">
+              Terms of Use
+            </Link>
+            <Link href="/privacy" className="hover:text-green-400 transition-colors duration-200">
+              Privacy Policy
+            </Link>
+          </div>
+
+          {/* Hamburger (Mobile) */}
+          <button
+            className="text-green-400 text-3xl lg:hidden"
+            onClick={() => setNavOpen(!navOpen)}
+          >
+            {navOpen ? (
+              <IoMdClose className="text-4xl" />
+            ) : (
+              <GiHamburgerMenu className="text-4xl" />
+            )}
+          </button>
+        </motion.div>
+
+        {/* Mobile Menu */}
+        {navOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            className="absolute top-full left-0 w-full bg-black/90 backdrop-blur-lg border-t border-green-400/30 flex flex-col items-center gap-6 py-10 text-white font-semibold shadow-[0_4px_20px_rgba(0,255,0,0.2)] rounded-b-3xl"
+          >
+            {["About", "Contact", "Terms", "Privacy"].map((item, i) => (
+              <Link
+                key={i}
+                href={`/${item.toLowerCase().replace(/\s+/g, "")}`}
+                onClick={handleNavClose}
+                className="hover:text-green-400 transition-colors duration-200"
+              >
+                {item}
+              </Link>
+            ))}
+          </motion.div>
         )}
-      </motion.div>
-    </section>
+      </nav>
+
+      {/* Spacer to prevent content being covered */}
+      <div className="pt-28 md:pt-32"></div>
+    </>
   );
 };
 

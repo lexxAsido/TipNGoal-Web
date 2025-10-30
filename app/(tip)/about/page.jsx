@@ -19,13 +19,15 @@ const about = () => {
            duration:0.7
        }}
       >
-        <Image
-          src="/tip-left.png"
-          alt="TipNGoal Prediction"
-          width={400}
-          height={200}
-          className="w-auto h-auto "
-          />
+        {/* <Image
+  src="/goal.png"
+  alt="TipNGoal Prediction"
+  width={400}
+  height={200}
+  className="w-[400px] max-w-full h-auto object-contain drop-shadow-[0_0_25px_rgba(0,255,0,0.3)] 
+             md:w-[400px] sm:w-[350px] max-sm:w-[220px]"
+/> */}
+
       </motion.div>
 
       <motion.div className="text-balance  max-md:text-sm shadow-lg max-w-2xl shadow-green-500 py-10 px-3 border-green-500 bg-white"

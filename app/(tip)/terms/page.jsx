@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 const page = () => {
   return (
-    <section className="bg-gray-100 py-12 px-4 flex justify-center items-center min-h-screen flex-row max-md:flex-col md:gap-10 max-md:text-sm font-sans">
+    <section className=" py-12 px-4 flex justify-center items-center min-h-screen flex-row max-md:flex-col md:gap-10 max-md:text-sm font-sans">
       <motion.div
        initial={{ opacity:0, scale: 0}}
        animate={{ opacity:1, scale: 1}}
@@ -17,13 +17,14 @@ const page = () => {
            duration:0.7
        }}
       >
-        <Image
-          src="/tip2-portrait.png"
-          alt="TipNGoal Prediction"
-          width={300}
-          height={200}
-          className="w-auto h-auto "
-        />
+       {/* <Image
+         src="/goal2.png"
+         alt="TipNGoal Prediction"
+         width={400}
+         height={200}
+         className="w-[400px] max-w-full h-auto object-contain drop-shadow-[0_0_25px_rgba(0,255,0,0.3)] 
+                    md:w-[400px] sm:w-[350px] max-sm:w-[220px]"
+       /> */}
       </motion.div>
 
       <motion.div className="bg-white rounded-lg shadow-lg p-8 max-w-2xl w-full shadow-green-500 mt-20  border-green-500"

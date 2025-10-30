@@ -1,151 +1,134 @@
 "use client";
-import { BsCashStack } from "react-icons/bs";
 import Link from "next/link";
-import React from "react";
-import { FaCopyright, FaInstagram, FaSquareXTwitter } from "react-icons/fa6";
-import { FaWhatsapp } from "react-icons/fa";
-import { BsFillSafe2Fill } from "react-icons/bs";
-import { SiAmazongames } from "react-icons/si";
-import { IoMdFlash } from "react-icons/io";
-import { TbBallFootball } from "react-icons/tb";
+import Image from "next/image";
 import { motion } from "framer-motion";
+import { FaInstagram, FaSquareXTwitter, FaWhatsapp } from "react-icons/fa6";
+import { CgMail } from "react-icons/cg";
 
 const Footer = () => {
   return (
-    <motion.section className="h-[17rem] bg-[#c1c7c3] max-lg:h-auto font-sans"
-    initial={{ opacity: 0, scaleY:0 }}
-     animate={{ opacity: 1, scaleY:1}}
-     transition={{
-      type: "spring",
-      stiffness: 125,
-      delay: 0.2,
-      duration:1.0
-  }}
+    <motion.footer
+      className="bg-[#0b0b0b] text-gray-300 font-sans border-t border-green-500/10"
+      initial={{ opacity: 0, scaleY: 0 }}
+      animate={{ opacity: 1, scaleY: 1 }}
+      transition={{
+        type: "spring",
+        stiffness: 125,
+        delay: 0.2,
+        duration: 1.0,
+      }}
     >
-        <h2 className="text-3xl font-bold border-b-4 border-black pt-6 text-center max-lg:text-md">What We Offer!</h2>
-      <div className="flex justify-evenly mt-5 font-bold max-md:flex-col max-md:gap-2">
-        <div className="flex flex-col items-center hover:scale-125 cursor-pointer group">
-          <BsFillSafe2Fill className="text-6xl group-hover:text-green-500 max-md:text-2xl"/>
-          <h3 className="max-md:text-sm">Safe Predictions</h3>
-        </div>
-        <div className="flex flex-col items-center hover:scale-125 cursor-pointer group">
-            <TbBallFootball className="text-6xl group-hover:text-green-500 max-md:text-2xl"/>
-          <h3 className="max-md:text-sm">Sure Odds</h3>
-        </div>
-        <div className="flex flex-col items-center hover:scale-125 cursor-pointer group">
-            <BsCashStack className="text-6xl group-hover:text-green-500 max-md:text-2xl"/>
-          <h3 className="max-md:text-sm">Daily 5 Odds</h3>
-        </div>
-        <div className="flex flex-col items-center hover:scale-125 cursor-pointer group">
-             <SiAmazongames className="text-6xl group-hover:text-green-500 max-md:text-3xl"/>
-          <h3 className="max-md:text-sm">Games Bookings</h3>
-        </div>
-        <div className="flex flex-col items-center hover:scale-125 cursor-pointer group">
-        <IoMdFlash  className="text-6xl group-hover:text-green-500 max-md:text-2xl"/>
-          <h3 className="max-md:text-sm">Livescore Update</h3>
-        </div>
-      </div>
-      <div className="flex justify-between items-center px-3 mt-5 max-lg:flex-col ">
-        <div className="flex gap-10 font-semibold mr-3 max-md:text-sm max-md:gap-3">
-          <button className=" hover:scale-110 transition-all hover:text-green-500 underline decoration-double"><Link href={"/about"}>About Us</Link>
-            
-          </button>
-          <button className=" hover:scale-110 transition-all hover:text-green-500 underline decoration-double"><Link href={"/contact"}>Contact</Link>
+      {/* Top Footer Section */}
+      <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-10">
+        {/* Brand Info */}
+        <div>
           
-          </button>
-          <button className=" hover:scale-110 transition-all hover:text-green-500 underline decoration-double"><Link href={"/terms"}>Terms of Use</Link>
-          
-          </button>
-          <button className=" hover:scale-110 transition-all hover:text-green-500 underline decoration-double"><Link href={"/privacy"}>Privacy Policy</Link>
-            
-          </button>
+          <span className="text-white font-semibold">TIP<span className="text-green-500">N</span>GOAL</span>
+          <p className="text-sm leading-relaxed text-gray-400">
+            Your ultimate football prediction companion. Delivering accurate
+            insights, stats, and expert picks to help you make smarter betting
+            decisions every matchday.
+          </p>
+
+          <span className="flex flex-row items-center gap-1">
+            <CgMail color="green"/>
+          <p className=" text-gray-400 ">
+            {/* <span className="inline-block mr-2 text-green-400">📧</span> */}
+            tipngoal@gmail.com
+          </p>
+          </span>
         </div>
 
-        <div className="flex items-center font-semibold gap-2 max-md:text-sm ">
-          <FaCopyright className="text-2xl max-md:text-sm" />
-          <h3>TipNgoal Sport Prediction Limited</h3>
+        {/* Links */}
+        <div className="flex flex-col space-y-2 md:items-center">
+          <Link
+            href="/about"
+            className="hover:text-green-400 transition-colors"
+          >
+            About us
+          </Link>
+          <Link
+            href="/contact"
+            className="hover:text-green-400 transition-colors"
+          >
+            Contact us
+          </Link>
+          <Link
+            href="/terms"
+            className="hover:text-green-400 transition-colors"
+          >
+            Term of use
+          </Link>
+          <Link
+            href="/privacy"
+            className="hover:text-green-400 transition-colors"
+          >
+            Privacy Policy
+          </Link>
+          {/* <Link
+            href="/blog"
+            className="hover:text-green-400 transition-colors"
+          >
+            Blog
+          </Link> */}
         </div>
 
-        <div className="pb-5">
-          <div className="flex gap-3 max-md:text-sm">
-            <Link href="https://www.instagram.com">
-              <div className="icon-container text-[#e6399b]">
-                <FaInstagram />
-              </div>
+        {/* Socials + App */}
+        <div className="md:text-right">
+          <h4 className="text-green-400 font-semibold mb-3">
+            Follow us on socials
+          </h4>
+          <div className="flex md:justify-end gap-4 mb-5">
+            <Link href="https://x.com" target="_blank">
+              <FaSquareXTwitter className="text-2xl hover:text-green-400 transition-colors" />
             </Link>
-            <Link href="https://www.x.com">
-              <div className="icon-container text-black hover:text-white">
-                <FaSquareXTwitter />
-              </div>
+            <Link href="https://instagram.com" target="_blank">
+              <FaInstagram className="text-2xl hover:text-green-400 transition-colors" />
             </Link>
-            <Link href="https://www.whatsapp.com">
-              <div className="icon-container text-[#26e600]">
-                <FaWhatsapp />
-              </div>
+            <Link href="https://whatsapp.com" target="_blank">
+              <FaWhatsapp className="text-2xl hover:text-green-400 transition-colors" />
             </Link>
+          </div>
+
+          <h4 className="text-green-400 font-semibold mb-3">Get the App</h4>
+          <div className="flex md:justify-end gap-2 items-center">
+            <Image
+              src="/apple.png"
+              alt="App Store"
+              width={120}
+              height={40}
+              className="hover:opacity-90 transition-opacity mt-2"
+            />
+            <Image
+              src="/google.png"
+              alt="Google Play"
+              width={120}
+              height={40}
+              className="hover:opacity-90 transition-opacity"
+            />
           </div>
         </div>
       </div>
 
-      <style jsx>{`
-  .icon-container {
-    position: relative;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    width: 4rem;
-    height: 4rem;
-    font-size: 2rem;
-    border: 4px solid;
-    border-radius: 0.5rem;
-    overflow: hidden;
-    transition: transform 0.5s ease, box-shadow 0.5s ease;
-    cursor: pointer;
-  }
+      {/* Glowing Divider Line */}
+      <motion.div
+        animate={{ opacity: [0.7, 1, 0.7] }}
+        transition={{
+          duration: 3,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className="h-[2px] bg-gradient-to-r from-transparent via-green-400 to-transparent shadow-[0_0_25px_rgba(0,255,0,0.5)]"
+      />
 
-  .icon-container::before {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: black;
-    transform: scaleY(0);
-    transform-origin: bottom;
-    transition: transform 0.5s ease;
-    z-index: -1;
-  }
-
-  .icon-container:hover {
-    transform: scale(1.2);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  }
-
-  .icon-container:hover::before {
-    transform: scaleY(1);
-  }
-
-  .icon-container svg {
-    z-index: 1;
-  }
-
-  
-  @media (max-width: 768px) {
-    .icon-container {
-      width: 2.5rem;
-      height: 2.5rem;
-      font-size: 1.5rem;
-      border-width: 2px;
-    }
-
-    .icon-container:hover {
-      transform: scale(1.1); 
-    }
-  }
-`}</style>
-
-    </motion.section>
+      {/* Bottom Bar */}
+      <div className="text-center py-4  bg-black/50 border-t border-green-500/10">
+       <h2 className="text-gray-500 text-sm">
+         © 2025 TipNGoal. All rights reserved.
+        </h2>
+        <p className="text-green-400 text-sm">Smarter predictions. Bigger wins.</p>
+      </div>
+    </motion.footer>
   );
 };
 

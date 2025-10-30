@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 const Privacy = () => {
   return (
-    <section className="bg-gray-100 py-12 px-4 flex justify-center items-center min-h-screen flex-row max-md:flex-col md:gap-10 font-sans">
+    <section className=" py-12 px-4 flex justify-center items-center min-h-screen flex-row max-md:flex-col md:gap-10 font-sans">
       <motion.div
       initial={{ opacity:0, scale: 0}}
       animate={{ opacity:1, scale: 1}}
@@ -17,13 +17,13 @@ const Privacy = () => {
           duration:0.7
       }}
       >
-        <Image
+        {/* <Image
           src="/tipnews.png"
           alt="TipNGoal Prediction"
           width={400}
           height={100}
           className="w-auto h-auto"
-        />
+        /> */}
       </motion.div>
 
       <motion.div className="bg-white rounded-lg shadow-lg p-8 max-w-2xl w-full shadow-green-500 mt-20 border border-green-500"
@@ -39,7 +39,7 @@ const Privacy = () => {
         <h2 className="text-3xl font-bold text-center mb-8 text-green-500 max-md:text-lg">
           Privacy Policy
         </h2>
-        <h3 className="font-bold">Effective Date: 16th December 2024</h3>
+        <h3 className="font-bold">Effective Date: 1st November 2025</h3>
         <p className='max-lg:text-sm'>
           <span className="text-green-500 font-bold">TipNGoal</span> is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your personal information when you use our services. By using TipNGoal, you agree to the terms of this Privacy Policy.
         </p>
@@ -52,10 +52,10 @@ const Privacy = () => {
             <ul className="list-disc ml-10">
               <li>First Name</li>
               <li>Last Name</li>
-              <li>Username</li>
+              {/* <li>Username</li> */}
               <li>Email</li>
-              <li>Phone Number</li>
-              <li>Address</li>
+              {/* <li>Phone Number</li> */}
+              {/* <li>Address</li> */}
             </ul>
           </li>
           <li className="list-decimal ">
