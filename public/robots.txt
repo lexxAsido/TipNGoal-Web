@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://tipngoal.com
+
+# Sitemaps
+Sitemap: https://tipngoal.com/sitemap.xml
