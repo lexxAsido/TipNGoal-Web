@@ -122,7 +122,7 @@ const Offers = () => {
             text="TIPNGOAL has changed the way I bet on football. I now enjoy healthy winning daily predictions!"
           />
           <Testimonial
-            img="/img5.jpg"
+            img="/avatar.png"
             name="Buta M."
             text="This app is fun to use for live scores. The daily tips are 80% accurate too!"
           />

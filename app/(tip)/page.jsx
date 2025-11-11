@@ -46,7 +46,7 @@ const Page = () => {
           {/* User images */}
           <div className="flex items-center gap-3 px-5 mt-6">
             <div className="flex -space-x-2">
-              {["/img6.jpg", "/img5.jpg", "/img4.jpg", "/img7.jpg", "/img3.jpg"].map((src, i) => (
+              {["/img6.jpg", "/avatar.png", "/img4.jpg", "/img7.jpg", "/img3.jpg"].map((src, i) => (
                 <div
                   key={i}
                   className="w-12 h-12 rounded-full overflow-hidden border-2 border-green-400"
