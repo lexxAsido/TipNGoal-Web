@@ -46,6 +46,12 @@ const Navbar = () => {
 
           {/* Desktop Links */}
           <div className="hidden lg:flex gap-8 font-medium text-gray-300">
+            <Link href="/" className="hover:text-green-400 transition-colors duration-200">
+              Home
+            </Link>
+            <Link href="/livescore" className="hover:text-green-400 transition-colors duration-200">
+              Livescore
+            </Link>
             <Link href="/about" className="hover:text-green-400 transition-colors duration-200">
               About Us
             </Link>
@@ -81,7 +87,7 @@ const Navbar = () => {
             exit={{ opacity: 0 }}
             className="absolute top-full left-0 w-full bg-black/90 backdrop-blur-lg border-t border-green-400/30 flex flex-col items-center gap-6 py-10 text-white font-semibold shadow-[0_4px_20px_rgba(0,255,0,0.2)] rounded-b-3xl"
           >
-            {["About", "Contact", "Terms", "Privacy"].map((item, i) => (
+            {["Home", "Livescore", "About", "Contact", "Terms", "Privacy"].map((item, i) => (
               <Link
                 key={i}
                 href={`/${item.toLowerCase().replace(/\s+/g, "")}`}
