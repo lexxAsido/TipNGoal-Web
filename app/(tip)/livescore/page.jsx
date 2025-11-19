@@ -15,7 +15,6 @@ const {
 
 const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
 
-
 const SPORTS = [
   { key: "football", label: "⚽ Football" },
   { key: "basketball", label: "🏀 Basketball" },
@@ -139,7 +138,7 @@ export default function Livescore() {
   const [fixtures, setFixtures] = useState([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
-
+const [searchQuery, setSearchQuery] = useState("");
   const [selectedFixture, setSelectedFixture] = useState(null);
   const [detailTab, setDetailTab] = useState('lineups');
   const [detailLoading, setDetailLoading] = useState(false);
@@ -313,6 +312,28 @@ export default function Livescore() {
     }
   }, [sport]);
 
+  const filteredFixtures = useMemo(() => {
+  if (!searchQuery.trim()) return fixtures;
+
+  const q = searchQuery.toLowerCase();
+
+  return fixtures.filter((item) => {
+    if (item.type === "header") {
+      return item.league.toLowerCase().includes(q);
+    }
+    if (item.type === "fixture") {
+      const f = item.data;
+      return (
+        f.homeTeam?.name?.toLowerCase().includes(q) ||
+        f.awayTeam?.name?.toLowerCase().includes(q) ||
+        f.league?.name?.toLowerCase().includes(q)
+      );
+    }
+    return false;
+  });
+}, [searchQuery, fixtures]);
+
+
   return (
     <div className="min-h-screen p-4 ">
       <div className="max-w-3xl mx-auto">
@@ -362,10 +383,31 @@ export default function Livescore() {
 
 
         {loading ? (
+          
           <div className="py-20 text-center text-emerald-600">Loading fixtures…</div>
         ) : (
           <div className="space-y-3">
-            {fixtures.map((item, idx) => {
+            {/* Search Bar */}
+              <div className="mb-4">
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search team or league..."
+                  className="
+                    w-full px-3 py-2 
+                    rounded-lg 
+                    bg-slate-100 dark:bg-slate-700 
+                    text-slate-900 dark:text-slate-100 
+                    placeholder-slate-500 dark:placeholder-slate-400
+                    focus:outline-none focus:ring-2 focus:ring-emerald-600
+                  "
+                />
+              </div>
+
+            {/* {fixtures.map((item, idx) => { */}
+            {filteredFixtures.map((item, idx) => {
+
               if (item.type === 'header') {
                 return (
                   <div key={`h-${idx}`}>
