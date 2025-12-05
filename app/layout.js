@@ -8,7 +8,7 @@ const montserrat = Montserrat({
 
 export const metadata = {
   title: 'TipNGoal',
-  description: 'Your Surest Prediction Plug',
+  description: 'Betting Codes | Livescores |Sport News',
 };
 
 export default function RootLayout({ children }) {

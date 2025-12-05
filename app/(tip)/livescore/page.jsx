@@ -2,7 +2,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import apiConfig from '@/app/Services/apiConfig'
 import { format } from "date-fns"; 
-
+import { FiCalendar } from "react-icons/fi";
 
 const {
   getLiveFixtures,
@@ -516,25 +516,27 @@ const [isToday, setIsToday] = useState(true);
         ) : (
           <div className="space-y-3">
             {/* ➤ NEW: DATE PICKER */}
-<div className="mb-4 flex items-center gap-3">
-  <input
-    type="date"
-    value={selectedDate}
-    onChange={(e) => {
-      const d = e.target.value;
-      setSelectedDate(d);
+<div className="relative mb-4 flex items-center gap-3">
+  <div className="relative">
+    {/* <FiCalendar className="absolute left-3 top-1/2 -translate-y-1/2 text-emerald-600 dark:text-slate-100 pointer-events-none" /> */}
 
-      // check if user selected today
-      const today = format(new Date(), "yyyy-MM-dd");
-      setIsToday(d === today);
-    }}
-    className="
-      px-3 py-2 rounded-lg 
-      bg-slate-100 dark:bg-emerald-600 
-      text-emerald-600 dark:text-slate-100 
-      focus:outline-none focus:ring-2 focus:ring-emerald-600
-    "
-  />
+    <input
+      type="date"
+      value={selectedDate}
+      onChange={(e) => {
+        const d = e.target.value;
+        setSelectedDate(d);
+        const today = format(new Date(), "yyyy-MM-dd");
+        setIsToday(d === today);
+      }}
+      className="
+        pl-10 pr-3 py-2 rounded-lg 
+        bg-slate-100 dark:bg-emerald-600 
+        text-emerald-600 dark:text-slate-100 
+        focus:outline-none focus:ring-2 focus:ring-emerald-600
+      "
+    />
+  </div>
 
   {!isToday && (
     <button
@@ -549,6 +551,7 @@ const [isToday, setIsToday] = useState(true);
     </button>
   )}
 </div>
+
 
             {/* Search Bar */}
               <div className="mb-4">
