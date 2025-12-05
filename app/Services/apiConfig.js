@@ -1,11 +1,7 @@
-import axios from "axios";
+import axios from "axios"; 
 
 // ⚙️ API key
 const API_KEY = process.env.NEXT_PUBLIC_FOOTBALL_API;
-// console.log("FOOTBALL_API:", process.env.NEXT_PUBLIC_FOOTBALL_API);
-
-
-// const API_KEY = "1551f90f7db1519fe203dfbfcdccf62d";
 
 // 🔗 Base URLs
 const BASE_URLS = {
@@ -46,6 +42,7 @@ const formatFixtures = (data, sport) => {
           name: item.league?.name,
           logo: item.league?.logo,
           country: item.country?.name,
+          season: item.league?.season,
         },
         homeTeam: {
           id: item.teams?.home?.id,
@@ -64,7 +61,7 @@ const formatFixtures = (data, sport) => {
       };
     }
 
-    // default: football
+    // football
     return {
       id: item.fixture?.id,
       date: item.fixture?.date,
@@ -75,6 +72,7 @@ const formatFixtures = (data, sport) => {
         name: item.league?.name,
         logo: item.league?.logo,
         country: item.league?.country,
+        season: item.league?.season, 
       },
       homeTeam: {
         id: item.teams?.home?.id,
@@ -101,10 +99,8 @@ export const getLiveFixtures = async (sport = "football") => {
   try {
     const params = sport === "football" ? { live: "all" } : { live: true };
     const response = await api.get(endpoint, { params });
-    // return formatFixtures(response.data.response, sport);
     const fixtures = formatFixtures(response.data.response, sport);
-return groupFixturesByLeague(fixtures);
-
+    return groupFixturesByLeague(fixtures);
   } catch (error) {
     console.error(`Error fetching live fixtures for ${sport}:`, error.response?.data || error.message);
     return [];
@@ -119,16 +115,13 @@ export const getTodayFixtures = async (sport = "football") => {
     const today = new Date().toISOString().split("T")[0];
     const response = await api.get(endpoint, { params: { date: today } });
 
-    // NBA filter (optional)
     const filtered =
       sport === "nba"
         ? (response.data.response || []).filter((item) => item.league?.id === 12)
         : response.data.response;
 
-    // return formatFixtures(filtered, sport);
     const fixtures = formatFixtures(filtered, sport);
-return groupFixturesByLeague(fixtures);
-
+    return groupFixturesByLeague(fixtures);
   } catch (error) {
     console.error(`Error fetching today's fixtures for ${sport}:`, error.response?.data || error.message);
     return [];
@@ -137,7 +130,7 @@ return groupFixturesByLeague(fixtures);
 
 // === FIXTURE DETAILS ===
 
-// ✅ Get lineups (football only)
+// lineups
 export const getLineups = async (fixtureId, sport = "football") => {
   if (sport !== "football") return null;
   const api = getApi(sport);
@@ -145,7 +138,6 @@ export const getLineups = async (fixtureId, sport = "football") => {
     const res = await api.get(`/fixtures/lineups`, { params: { fixture: fixtureId } });
     const lineups = res.data?.response || [];
 
-    // ✅ format for display
     return lineups.map((team) => ({
       team: team.team.name,
       formation: team.formation,
@@ -159,8 +151,7 @@ export const getLineups = async (fixtureId, sport = "football") => {
   }
 };
 
-
-// ✅ Get head-to-head (football only)
+// h2h
 export const getHeadToHead = async (homeId, awayId, sport = "football") => {
   if (sport !== "football") return null;
   const api = getApi(sport);
@@ -168,7 +159,6 @@ export const getHeadToHead = async (homeId, awayId, sport = "football") => {
     const res = await api.get(`/fixtures/headtohead`, { params: { h2h: `${homeId}-${awayId}` } });
     const matches = res.data?.response || [];
 
-    // ✅ format for modal
     return matches.map((m) => ({
       date: m.fixture.date,
       league: m.league.name,
@@ -187,8 +177,7 @@ export const getHeadToHead = async (homeId, awayId, sport = "football") => {
   }
 };
 
-
-// ✅ Standings (for all sports)
+// stats
 export const getStats = async (fixtureId, sport = "football") => {
   if (sport !== "football") return null;
   const api = getApi(sport);
@@ -196,7 +185,6 @@ export const getStats = async (fixtureId, sport = "football") => {
     const res = await api.get(`/fixtures/statistics`, { params: { fixture: fixtureId } });
     const stats = res.data?.response || [];
 
-    // ✅ simplified formatting
     return stats.map((team) => ({
       team: team.team.name,
       stats: team.statistics.map((s) => ({
@@ -210,6 +198,7 @@ export const getStats = async (fixtureId, sport = "football") => {
   }
 };
 
+// predictions
 export const getPredictions = async (fixtureId, sport = "football") => {
   if (sport !== "football") return null;
   const api = getApi(sport);
@@ -233,40 +222,36 @@ export const getPredictions = async (fixtureId, sport = "football") => {
   }
 };
 
+// standings
 export const getStandingsByFixture = async (fixture, sport = "football") => {
-  const api = getApi(sport);
   const leagueId = fixture?.league?.id;
-  const season = new Date(fixture?.date).getFullYear(); // infer from fixture date
+  const season = fixture?.league?.season;
 
-  if (!leagueId) return [];
+  if (!leagueId || !season) return [];
+
   try {
-    const res = await api.get(`/standings`, {
-      params: { league: leagueId, season },
-    });
+    const res = await fetch(
+      `/api/standings?league=${leagueId}&season=${season}`
+    );
+    const data = await res.json();
 
-    const table =
-      sport === "football"
-        ? res.data?.response?.[0]?.league?.standings?.[0] || []
-        : res.data?.response || [];
+    const table = data?.response?.[0]?.league?.standings?.[0] || [];
 
     return table.map((t) => ({
       rank: t.rank,
-      team: {
-        name: t.team?.name || "-",
-        logo: t.team?.logo || null,
-      },
-      played: t.all?.played ?? "-",
-      win: t.all?.win ?? "-",
-      draw: t.all?.draw ?? "-",
-      lose: t.all?.lose ?? "-",
-      points: t.points ?? "-",
+      team: { name: t.team?.name, logo: t.team?.logo },
+      points: t.points,
     }));
+
   } catch (err) {
-    console.error("getStandingsByFixture error:", err.response?.data || err.message);
+    console.error("Standings fetch error:", err);
     return [];
   }
 };
-// 🧩 GROUP BY LEAGUE (shared for live + today)
+
+
+
+// 🧩 GROUP BY LEAGUE (shared for all fetches)
 export const groupFixturesByLeague = (fixtures = []) => {
   const grouped = {};
 
@@ -279,15 +264,61 @@ export const groupFixturesByLeague = (fixtures = []) => {
     grouped[leagueKey].push(fixture);
   });
 
-  // sort leagues alphabetically
-  return Object.fromEntries(Object.entries(grouped).sort(([a], [b]) => a.localeCompare(b)));
+  return Object.fromEntries(
+    Object.entries(grouped).sort(([a], [b]) => a.localeCompare(b))
+  );
+};
+
+//
+// 🚀 NEW FUNCTION — fetch fixtures by ANY date
+export const getFixturesByDate = async (date, sport = "football") => {
+  if (!date) return [];
+
+  const api = getApi(sport);
+  const endpoint = getEndpoint(sport);
+
+  let formattedDate;
+  try {
+    formattedDate = new Date(date).toISOString().split("T")[0];
+  } catch {
+    console.warn("[getFixturesByDate] Invalid date:", date);
+    return [];
+  }
+
+  console.log(`[getFixturesByDate] sport: ${sport}, date: ${date}, formattedDate: ${formattedDate}`);
+
+  try {
+    const response = await api.get(endpoint, {
+      params: { date: formattedDate }
+    });
+
+    console.log("[getFixturesByDate] API response:", response.data);
+
+    const filtered =
+      sport === "nba"
+        ? (response.data.response || []).filter(
+            (item) => item.league?.id === 12
+          )
+        : response.data.response;
+
+    const fixtures = formatFixtures(filtered, sport);
+    return groupFixturesByLeague(fixtures);
+  } catch (error) {
+    console.error(
+      `Error fetching fixtures for ${formattedDate} (${sport}):`,
+      error.response?.data || error.message
+    );
+    return [];
+  }
 };
 
 
-// ✅ Exports
+
+// exports
 export default {
   getLiveFixtures,
   getTodayFixtures,
+  getFixturesByDate, 
   getLineups,
   getHeadToHead,
   getStats,

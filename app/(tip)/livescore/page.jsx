@@ -1,6 +1,8 @@
 "use client"
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import apiConfig from '@/app/Services/apiConfig'
+import { format } from "date-fns"; 
+
 
 const {
   getLiveFixtures,
@@ -34,8 +36,10 @@ const TOP_LEAGUES = [
 const cacheKeyFor = (k) => `tipngoal__${k}`;
 
 function formatTime(iso) {
+  if (!iso) return { date: "", time: "" }; // <-- handle undefined/null
   try {
     const d = new Date(iso);
+    if (isNaN(d)) return { date: "", time: "" }; // <-- handle invalid date
     const date = d.toLocaleDateString();
     const time = d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
     return { date, time };
@@ -81,7 +85,7 @@ const FixtureCard = React.memo(({ fixture, onOpenFixture, onOpenLeague }) => {
           <div className="text-lg font-bold text-slate-900 dark:text-slate-100">{fixture.score?.home ?? '-'} - {fixture.score?.away ?? '-'}</div>
           <div
   className={`text-xs mt-1 ${
-    fixture.elapsed ? 'text-emerald-600' : 'text-slate-500'
+    fixture.elapsed ? 'text-white' : 'text-slate-500'
   }`}
 >
   {fixture.status === 'NS'
@@ -108,30 +112,80 @@ const FixtureCard = React.memo(({ fixture, onOpenFixture, onOpenLeague }) => {
 });
 
 const StandingsTable = React.memo(({ standings }) => {
-  if (!standings?.length) return <div className="p-4 text-slate-500">No standings provided.</div>;
+  if (!standings || standings.length === 0)
+    return <div className="p-4 text-slate-500">No standings available.</div>;
+
+  // API-Football sometimes returns:
+  // [{ group: "Group A", table: [...] }, { group: "Group B", table: [...] }]
+  const isGrouped = standings[0]?.table && Array.isArray(standings[0].table);
+
+  if (isGrouped) {
+    return (
+      <div className="space-y-6">
+        {standings.map((grp, gIdx) => (
+          <div key={gIdx} className="bg-white dark:bg-slate-800 rounded-lg shadow overflow-hidden">
+            {/* Group Title */}
+            <div className="px-4 py-2 font-semibold text-emerald-600 text-sm border-b border-slate-200 dark:border-slate-700">
+              {grp.group}
+            </div>
+
+            {/* Header */}
+            <div className="flex justify-between px-4 py-2 text-xs text-slate-500 border-b border-slate-200 dark:border-slate-700">
+              <div className="w-8">#</div>
+              <div className="flex-1">Team</div>
+              <div className="w-12 text-right">Pts</div>
+            </div>
+
+            {/* Table rows */}
+            {grp.table.map((row, idx) => (
+              <div
+                key={row.team?.id ?? idx}
+                className="flex items-center justify-between px-4 py-2 border-b border-slate-100 dark:border-slate-700"
+              >
+                <div className="w-8 text-sm">{row.rank}</div>
+                <div className="flex flex-1 items-center gap-3">
+                  {row.team?.logo && (
+                    <img src={row.team.logo} className="w-5 h-5 rounded-full" alt="" />
+                  )}
+                  <div className="text-sm truncate text-white">{row.team?.name}</div>
+                </div>
+                <div className="w-12 text-right text-sm">{row.points}</div>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // Non-grouped standings (Premier League, La Liga…)
   return (
-    <div className="bg-white dark:bg-slate-800 rounded-lg overflow-hidden shadow-sm">
-      <div className="flex justify-between px-4 py-3 border-b border-slate-200 dark:border-slate-700 text-sm text-slate-500">
-        <div className="w-8">#</div>
+    <div className="bg-white dark:bg-slate-800 rounded-lg overflow-hidden shadow">
+      <div className="flex justify-between px-4 py-2 text-xs text-slate-500 border-b border-slate-200 dark:border-slate-700">
+        <div className="w-8 text-white">#</div>
         <div className="flex-1">Team</div>
         <div className="w-12 text-right">Pts</div>
       </div>
+
       {standings.map((row, idx) => (
-        <div key={row.team?.id ?? idx} className="flex items-center justify-between px-4 py-3 border-b border-slate-100 dark:border-slate-700">
-          <div className="w-8 text-sm text-slate-800 dark:text-slate-100">{row.rank ?? idx + 1}</div>
+        <div
+          key={row.team?.id ?? idx}
+          className="flex items-center justify-between px-4 py-2 border-b border-slate-100 dark:border-slate-700"
+        >
+          <div className="w-8 text-sm text-white">{row.rank}</div>
           <div className="flex-1 flex items-center gap-3">
             {row.team?.logo && (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={row.team.logo} alt="logo" className="w-6 h-6 rounded-full" />
+              <img src={row.team.logo} className="w-5 h-5 rounded-full" alt="" />
             )}
-            <div className="text-sm text-slate-800 dark:text-slate-100 truncate">{row.team?.name ?? '—'}</div>
+            <div className="text-sm truncate text-white">{row.team?.name}</div>
           </div>
-          <div className="w-12 text-right text-sm text-slate-800 dark:text-slate-100">{row.points ?? '-'}</div>
+          <div className="w-12 text-right text-sm text-white">{row.points}</div>
         </div>
       ))}
     </div>
   );
 });
+
 
 export default function Livescore() {
   const [sport, setSport] = useState('football');
@@ -143,6 +197,9 @@ const [searchQuery, setSearchQuery] = useState("");
   const [detailTab, setDetailTab] = useState('lineups');
   const [detailLoading, setDetailLoading] = useState(false);
   const [detailData, setDetailData] = useState(null);
+// ➤ NEW STATES
+const [selectedDate, setSelectedDate] = useState(() => format(new Date(), "yyyy-MM-dd"));
+const [isToday, setIsToday] = useState(true);
 
   const [standingsOpen, setStandingsOpen] = useState(false);
   const [selectedLeague, setSelectedLeague] = useState(null);
@@ -171,44 +228,99 @@ const [searchQuery, setSearchQuery] = useState("");
   }, []);
 
   const fetchFixtures = useCallback(async () => {
-    setLoading(true);
-    try {
-      const [live, today] = await Promise.all([
-        loadAndCache(`${sport}_live`, () => getLiveFixtures(sport)),
-        loadAndCache(`${sport}_today`, () => getTodayFixtures(sport)),
-      ]);
+  setLoading(true);
+  console.log("🔍 fetchFixtures called:", { sport, selectedDate });
 
-      const merged = [...Object.values(live || {}).flat(), ...Object.values(today || {}).flat()];
-      const grouped = groupFixturesByLeague(merged);
+  try {
+    const cacheKey = `${sport}_${selectedDate}`;
 
-      const allLeagues = Object.keys(grouped);
-      const matchedTopLeagues = [];
-      TOP_LEAGUES.forEach((tl) => {
-        const match = allLeagues.find((l) => l.toLowerCase().includes(tl.toLowerCase()));
-        if (match && !matchedTopLeagues.includes(match)) matchedTopLeagues.push(match);
+    const data = await loadAndCache(cacheKey, async () => {
+      const todayStr = format(new Date(), "yyyy-MM-dd");
+
+      if (selectedDate === todayStr) {
+        console.log("📅 Fetching TODAY fixtures");
+
+        const [live, today] = await Promise.all([
+          getLiveFixtures(sport).then(r => {
+            console.log("🔥 Live fixtures API called:", r);
+            return r;
+          }),
+          getTodayFixtures(sport).then(r => {
+            console.log("📆 Today fixtures API called:", r);
+            return r;
+          }),
+        ]);
+
+        const merged = [
+          ...Object.values(live || {}).flat(),
+          ...Object.values(today || {}).flat(),
+        ];
+
+        console.log("📦 Merged today fixtures:", merged);
+
+        return merged;
+      }
+
+      // ➤ Fetch by selected date (NOT TODAY)
+      console.log("📅 Fetching fixtures for other date:", selectedDate);
+
+      const byDate = await apiConfig.getFixturesByDate(selectedDate, sport);
+      console.log("📡 API returned fixtures-by-date:", byDate);
+
+      const arr = Object.values(byDate || {}).flat();
+
+      arr.forEach((f) => {
+        if (!f.date) console.warn("[WARN] Fixture missing date:", f);
       });
-      const otherLeagues = allLeagues.filter((l) => !matchedTopLeagues.includes(l));
-      const orderedLeagues = [...matchedTopLeagues, ...otherLeagues];
 
-      const flatData = orderedLeagues.flatMap((league) => {
-        const fixturesForLeague = grouped[league];
-        if (!fixturesForLeague || !Array.isArray(fixturesForLeague)) return [];
-        return [{ type: 'header', league }, ...fixturesForLeague.map((f) => ({ type: 'fixture', data: f }))];
-      });
+      console.log("📦 Flattened fixtures for date:", arr);
 
-      setFixtures(flatData);
-    } catch (err) {
-      console.error('fetchFixtures', err);
-      setFixtures([]);
-    } finally {
-      setLoading(false);
-    }
-  }, [sport, loadAndCache]);
+      return arr;
+    });
+
+    console.log("📊 Final fetched data before grouping:", data);
+
+    const grouped = groupFixturesByLeague(data || []);
+    console.log("📚 Grouped by league:", grouped);
+
+    const allLeagues = Object.keys(grouped);
+
+    const matchedTopLeagues = [];
+    TOP_LEAGUES.forEach((tl) => {
+      const match = allLeagues.find((l) => l.toLowerCase().includes(tl.toLowerCase()));
+      if (match && !matchedTopLeagues.includes(match)) matchedTopLeagues.push(match);
+    });
+
+    const otherLeagues = allLeagues.filter((l) => !matchedTopLeagues.includes(l));
+    const orderedLeagues = [...matchedTopLeagues, ...otherLeagues];
+
+    const flatData = orderedLeagues.flatMap((league) => [
+      { type: "header", league },
+      ...grouped[league].map((f) => ({ type: "fixture", data: f })),
+    ]);
+
+    console.log("📌 FINAL FIXTURES RENDERED:", flatData);
+
+    setFixtures(flatData);
+  } catch (err) {
+    console.error("❌ fetchFixtures ERROR:", err);
+    setFixtures([]);
+  } finally {
+    setLoading(false);
+  }
+}, [sport, selectedDate, loadAndCache]);
+
+
 
   useEffect(() => {
     setFixtures([]);
     fetchFixtures();
   }, [sport, fetchFixtures]);
+
+  useEffect(() => {
+  fetchFixtures();
+}, [selectedDate]);
+
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
@@ -268,6 +380,8 @@ const [searchQuery, setSearchQuery] = useState("");
         res = await getPredictions(fixtureId, sport);
       } else if (tabKey === "standings") {
         res = await getStandingsByFixture(selectedFixture, sport);
+        
+
       }
 
       setDetailCache((prev) => ({ ...prev, [tabKey]: res }));
@@ -296,21 +410,39 @@ const [searchQuery, setSearchQuery] = useState("");
   // eslint-disable-next-line react-hooks/exhaustive-deps
 }, [selectedFixture]);
 
+
   const openStandings = useCallback(async (league) => {
-    if (!league) return;
-    setSelectedLeague(league);
-    setStandingsOpen(true);
-    setStandingsLoading(true);
-    try {
-      const res = await getStandingsByFixture({ league }, sport);
-      setStandingsData(res || []);
-    } catch (e) {
-      console.error(e);
-      setStandingsData([]);
-    } finally {
-      setStandingsLoading(false);
-    }
-  }, [sport]);
+  if (!league) return;
+
+  // FIX league reference
+  const leagueObj = {
+    id: league.id,
+    season: league.season,
+    name: league.name,
+  };
+
+  setSelectedLeague(leagueObj);
+  setStandingsOpen(true);
+  setStandingsLoading(true);
+
+  try {
+    const res = await getStandingsByFixture({ league: leagueObj }, sport);
+
+    let data = [];
+
+    if (Array.isArray(res)) data = res;
+    else if (res?.standings) data = res.standings;
+
+    setStandingsData(data);
+  } catch (e) {
+    console.error("Standings error", e);
+    setStandingsData([]);
+  } finally {
+    setStandingsLoading(false);
+  }
+}, [sport]);
+
+
 
   const filteredFixtures = useMemo(() => {
   if (!searchQuery.trim()) return fixtures;
@@ -365,20 +497,16 @@ const [searchQuery, setSearchQuery] = useState("");
   ))}
 
   <button
-    onClick={onRefresh}
-    className="
-      whitespace-nowrap
-      ml-auto
-      px-3 py-2
-      rounded-lg
-      bg-emerald-600
-      text-white font-bold
-      md:text-sm
-      text-[10px]      /* mobile */
-    "
-  >
-    {refreshing ? "Refreshing..." : "Refresh"}
-  </button>
+  onClick={onRefresh}
+  disabled={!isToday}
+  className={`
+    whitespace-nowrap ml-auto px-3 py-2 rounded-lg font-bold
+    ${isToday ? "bg-emerald-600 text-white" : "bg-slate-500 text-white opacity-60"}
+  `}
+>
+  {refreshing ? "Refreshing..." : "Refresh"}
+</button>
+
 </div>
 
 
@@ -387,6 +515,41 @@ const [searchQuery, setSearchQuery] = useState("");
           <div className="py-20 text-center text-emerald-600">Loading fixtures…</div>
         ) : (
           <div className="space-y-3">
+            {/* ➤ NEW: DATE PICKER */}
+<div className="mb-4 flex items-center gap-3">
+  <input
+    type="date"
+    value={selectedDate}
+    onChange={(e) => {
+      const d = e.target.value;
+      setSelectedDate(d);
+
+      // check if user selected today
+      const today = format(new Date(), "yyyy-MM-dd");
+      setIsToday(d === today);
+    }}
+    className="
+      px-3 py-2 rounded-lg 
+      bg-slate-100 dark:bg-emerald-600 
+      text-emerald-600 dark:text-slate-100 
+      focus:outline-none focus:ring-2 focus:ring-emerald-600
+    "
+  />
+
+  {!isToday && (
+    <button
+      onClick={() => {
+        const t = format(new Date(), "yyyy-MM-dd");
+        setSelectedDate(t);
+        setIsToday(true);
+      }}
+      className="text-xs px-3 py-2 rounded-lg bg-emerald-600 text-white"
+    >
+      Today
+    </button>
+  )}
+</div>
+
             {/* Search Bar */}
               <div className="mb-4">
                 <input
@@ -411,7 +574,11 @@ const [searchQuery, setSearchQuery] = useState("");
               if (item.type === 'header') {
                 return (
                   <div key={`h-${idx}`}>
-                    <button onClick={() => openStandings({ name: item.league })} className="text-emerald-600 font-semibold text-sm mb-2">
+                    <button onClick={() => {
+                        const sampleFixture = grouped[item.league]?.[0];
+                        openStandings(sampleFixture?.league);
+                      }}
+                      className="text-emerald-600 font-semibold text-sm mb-2">
                       {item.league}
                     </button>
                   </div>
@@ -462,7 +629,7 @@ const [searchQuery, setSearchQuery] = useState("");
                       detailData.map((team, i) => (
                         <div key={i}>
                           <div className="font-semibold text-slate-900 dark:text-slate-100">{team.team} ({team.formation})</div>
-                          <div className="text-sm text-slate-500">Coach: <span className="text-emerald-600">{team.coach}</span></div>
+                          <div className="text-sm text-white">Coach: <span className="text-emerald-600">{team.coach}</span></div>
                           <div className="text-emerald-600 font-semibold mt-2">Starting XI</div>
                           {team.startXI?.map((p, j) => <div key={j} className="text-sm text-white">{p}</div>)}
                           <div className="text-emerald-600 font-semibold mt-2">Substitutes</div>
@@ -472,7 +639,7 @@ const [searchQuery, setSearchQuery] = useState("");
                     ) : detailTab === 'h2h' && Array.isArray(detailData) && detailData.length > 0 ? (
                       detailData.map((m, i) => (
                         <div key={i} className="text-sm">
-                          <div className="text-slate-500">{m.date}</div>
+                          <div className="text-emerald-600">{format(new Date(m.date), "dd MMM yyyy, HH:mm")}</div>
                           <div className="text-slate-900 dark:text-slate-100">{m.home} {m.score} {m.away}</div>
                           <div className="text-emerald-600">Winner: {m.winner}</div>
                         </div>
@@ -481,7 +648,7 @@ const [searchQuery, setSearchQuery] = useState("");
                       detailData.map((team, i) => (
                         <div key={i}>
                           <div className="text-emerald-600 font-semibold">{team.team}</div>
-                          {team.stats?.map((s, j) => <div key={j} className="text-sm">{s.type}: {s.value}</div>)}
+                          {team.stats?.map((s, j) => <div key={j} className="text-sm text-white">{s.type}: {s.value}</div>)}
                         </div>
                       ))
                     ) : detailTab === 'predictions' && detailData ? (
