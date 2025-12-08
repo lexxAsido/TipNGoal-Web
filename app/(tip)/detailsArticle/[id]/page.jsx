@@ -72,7 +72,7 @@ export default function ArticleDetailsPage() {
   return (
     <div
       style={{
-        backgroundColor: '#1E1E1E',
+        // backgroundColor: '#1E1E1E',
         minHeight: '100vh',
         padding: 20,
         color: '#fff',
@@ -99,9 +99,9 @@ export default function ArticleDetailsPage() {
         src={mainImage}
         alt={article.title}
         style={{
-          width: '100%',
+          width: '150%',
           height: 350,
-          objectFit: 'cover',
+          objectFit: 'contain',
           borderRadius: 12,
           marginBottom: 20,
         }}
@@ -127,30 +127,35 @@ export default function ArticleDetailsPage() {
       </p>
 
       {/* THUMBNAILS */}
-      {article.thumbnails && article.thumbnails.length > 0 && (
-        <div
+    {/* THUMBNAILS */}
+{Array.isArray(article.thumbnails) && article.thumbnails.length > 0 && (
+  <div
+    style={{
+      display: 'flex',
+      gap: 12,
+      overflowX: 'auto',
+      marginBottom: 25,
+    }}
+  >
+    {article.thumbnails
+      .filter((thumb) => typeof thumb === "string" && thumb.trim() !== "")
+      .map((thumb, index) => (
+        <img
+          key={index}
+          src={thumb}
+          alt={`Thumbnail ${index + 1}`}
           style={{
-            display: 'flex',
-            gap: 12,
-            overflowX: 'auto',
-            marginBottom: 25,
+            width: 240,
+            height: 280,
+            objectFit: 'contain',
+            borderRadius: 10,
+            
           }}
-        >
-          {article.thumbnails.map((thumb, index) => (
-            <img
-              key={index}
-              src={thumb}
-              alt={`Thumbnail ${index + 1}`}
-              style={{
-                width: 140,
-                height: 140,
-                objectFit: 'cover',
-                borderRadius: 10,
-              }}
-            />
-          ))}
-        </div>
-      )}
+        />
+      ))}
+  </div>
+)}
+
 
       {/* CONTENT */}
       <p

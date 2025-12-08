@@ -19,8 +19,8 @@ const Navbar = () => {
     { name: "Football Hub", href: "/footballHub" },
     { name: "About Us", href: "/about" },
     { name: "Contact", href: "/contact" },
-    { name: "Terms of Use", href: "/terms" },
-    { name: "Privacy Policy", href: "/privacy" },
+    // { name: "Terms of Use", href: "/terms" },
+    // { name: "Privacy Policy", href: "/privacy" },
   ];
 
   return (
