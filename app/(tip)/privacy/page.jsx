@@ -63,7 +63,7 @@ const Privacy = () => {
             <p className="ml-6">The data collected is used for the following purposes:</p>
             <ul className="list-disc ml-10">
               <li>Authentication: To create and manage user accounts, allowing secure access to our services.</li>
-              <li>Display on the App: User details such as your first name, last name, username, and email are displayed on the app when you are signed in.</li>
+              <li>Display on the App: User details such as your first name, last name, and email are displayed on the app when you are signed in.</li>
               <li>Service Improvement: To enhance user experience and provide accurate and valuable football and sports predictions.</li>
             </ul>
           </li>
@@ -96,7 +96,15 @@ const Privacy = () => {
             <li>Update Your Information: Modify or correct your personal details if they are inaccurate.</li>
             <li>Delete Your Data: Request deletion of your account and associated data from our system.</li>
           </ul>
-          <p className='ml-6'>To exercise any of these rights,please <Link href={"/contact"} className='text-green-500 font-bold'>Contact us</Link>.</p>
+          <p className='ml-6'>To exercise any of these rights,please <Link href={"/contact"} className='text-green-500 font-bold'>Contact us</Link> OR</p>
+          <p className='ml-6'>Delete your account and data via the TIPnGOAL App </p>
+          <ul className='ml-10 list-disc'>
+            <li>Log in to TIPnGOAL APP.</li>
+            <li>Click Account.</li>
+            <li>Click the action to delete account</li>
+            <li>Choose a reason for deleting account</li>
+            <li>Click the confirm deletion</li>
+          </ul>
           </li>
 
           <li className='list-decimal'>
