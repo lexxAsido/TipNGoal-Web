@@ -31,6 +31,7 @@ const GossipCard = memo(({ article, featured = false }) => {
         display: 'flex',
         flexDirection: 'column',
         position: 'relative', // 🔹 needed for badge absolute positioning
+        
       }}
     >
       {/* TIPnGOAL BADGE */}
@@ -69,10 +70,11 @@ const GossipCard = memo(({ article, featured = false }) => {
         }
         alt={article.title}
         style={{
-          width: '100%',
+          width: featured ? "100%" : "100%",
           height: featured ? 500 : 200,
-          objectFit: 'cover',
+          objectFit: 'contain',
         }}
+        className='p-5 rounded-md'
       />
 
       <div style={{ padding: 12 }}>
@@ -179,20 +181,21 @@ const GossipPage = () => {
         <>
           {/* ---------------- MAIN TIPNGOAL FEATURED ARTICLE ---------------- */}
           {mainArticle && (
-            <div style={{ marginBottom: 40 }}>
-              {/* <h2
-                style={{
-                  color: '#1dbf73',
-                  fontSize: 26,
-                  marginBottom: 16,
-                  textAlign: 'center',
-                }}
-              >
-                Featured — TIPnGOAL
-              </h2> */}
-              <GossipCard article={mainArticle} featured={true} /> 
-            </div>
-          )}
+  <div
+    style={{
+      marginBottom: 40,
+      maxWidth: 900,
+      marginLeft: "auto",
+      marginRight: "auto",
+      display: "flex",
+      justifyContent: "center",
+    }}
+    
+  >
+    <GossipCard article={mainArticle} featured={true} />
+  </div>
+)}
+
 
           {/* ---------------- OTHER ARTICLES GRID ---------------- */}
           <div
