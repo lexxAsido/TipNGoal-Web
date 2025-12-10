@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import apiConfig from '@/app/Services/apiConfig'
 import { format } from "date-fns"; 
 import { FiCalendar } from "react-icons/fi";
+import { FaSquare } from "react-icons/fa6";
 
 const {
   getLiveFixtures,
@@ -13,6 +14,7 @@ const {
   getPredictions,
   getStandingsByFixture,
   groupFixturesByLeague,
+  getEvents
 } = apiConfig;
 
 const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
@@ -33,6 +35,31 @@ const TOP_LEAGUES = [
   "Uefa Champions League",
 ];
 
+const defaultColors = {
+  text: "#ffffff",        // white text
+  subText: "#9ca3af",     // slate-400
+  accent: "#10b981",      // emerald-500
+  card: "#1e293b",        // slate-800 (dark card background)
+};
+
+const getEventIcon = (type, detail = "") => {
+  if (type === "Goal") return "⚽";
+
+  if (type === "Card") {
+    const d = detail.toLowerCase();
+
+    if (d.includes("yellow") && !d.includes("second")) return <FaSquare />; // Yellow Card
+    if (d.includes("second")) return <FaSquare />;                         // Second Yellow → Red
+    if (d.includes("red")) return <FaSquare />;                             // Straight Red / Red Card
+
+    return <FaSquare />; // fallback
+  }
+
+  if (type === "subst") return "🔄";
+  if (type === "VAR") return "🖥️";
+
+  return "•";
+};
 const cacheKeyFor = (k) => `tipngoal__${k}`;
 
 function formatTime(iso) {
@@ -78,14 +105,14 @@ const FixtureCard = React.memo(({ fixture, onOpenFixture, onOpenLeague }) => {
             // eslint-disable-next-line @next/next/no-img-element
             <img src={fixture.homeTeam.logo} alt="home" className="w-10 h-10 rounded-full mb-2" />
           )}
-          <div className="text-sm text-slate-900 dark:text-slate-100 text-center">{fixture.homeTeam?.name}</div>
+          <div className="text-sm text-white text-center font-bold">{fixture.homeTeam?.name}</div>
         </div>
 
         <div className="w-1/3 text-center">
-          <div className="text-lg font-bold text-slate-900 dark:text-slate-100">{fixture.score?.home ?? '-'} - {fixture.score?.away ?? '-'}</div>
+          <div className="text-lg font-bold text-slate-100">{fixture.score?.home ?? '-'} - {fixture.score?.away ?? '-'}</div>
           <div
-  className={`text-xs mt-1 ${
-    fixture.elapsed ? 'text-white' : 'text-slate-500'
+  className={`text-xs mt-1 text-white ${
+    fixture.elapsed 
   }`}
 >
   {fixture.status === 'NS'
@@ -104,7 +131,7 @@ const FixtureCard = React.memo(({ fixture, onOpenFixture, onOpenLeague }) => {
             // eslint-disable-next-line @next/next/no-img-element
             <img src={fixture.awayTeam.logo} alt="away" className="w-10 h-10 rounded-full mb-2" />
           )}
-          <div className="text-sm text-slate-900 dark:text-slate-100 text-center">{fixture.awayTeam?.name}</div>
+          <div className="text-sm text-white text-center font-bold">{fixture.awayTeam?.name}</div>
         </div>
       </div>
     </button>
@@ -123,24 +150,24 @@ const StandingsTable = React.memo(({ standings }) => {
     return (
       <div className="space-y-6">
         {standings.map((grp, gIdx) => (
-          <div key={gIdx} className="bg-white dark:bg-slate-800 rounded-lg shadow overflow-hidden">
+          <div key={gIdx} className="bg-slate-800 rounded-lg shadow overflow-hidden">
             {/* Group Title */}
-            <div className="px-4 py-2 font-semibold text-emerald-600 text-sm border-b border-slate-200 dark:border-slate-700">
+            <div className="px-4 py-2 font-semibold text-emerald-600 text-sm border-b  dark:border-slate-700">
               {grp.group}
             </div>
 
             {/* Header */}
-            <div className="flex justify-between px-4 py-2 text-xs text-slate-500 border-b border-slate-200 dark:border-slate-700">
+            <div className="flex justify-between px-4 py-2 text-xs  border-b border-slate-700">
               <div className="w-8">#</div>
-              <div className="flex-1">Team</div>
-              <div className="w-12 text-right">Pts</div>
+              <div className="flex-1 text-white">Team</div>
+              <div className="w-12 text-right text-white">Pts</div>
             </div>
 
             {/* Table rows */}
             {grp.table.map((row, idx) => (
               <div
                 key={row.team?.id ?? idx}
-                className="flex items-center justify-between px-4 py-2 border-b border-slate-100 dark:border-slate-700"
+                className="flex items-center justify-between px-4 py-2 border-b  dark:border-slate-700"
               >
                 <div className="w-8 text-sm">{row.rank}</div>
                 <div className="flex flex-1 items-center gap-3">
@@ -160,17 +187,17 @@ const StandingsTable = React.memo(({ standings }) => {
 
   // Non-grouped standings (Premier League, La Liga…)
   return (
-    <div className="bg-white dark:bg-slate-800 rounded-lg overflow-hidden shadow">
-      <div className="flex justify-between px-4 py-2 text-xs text-slate-500 border-b border-slate-200 dark:border-slate-700">
-        <div className="w-8 text-white">#</div>
-        <div className="flex-1">Team</div>
-        <div className="w-12 text-right">Pts</div>
+    <div className="bg-slate-800 rounded-lg overflow-hidden shadow">
+      <div className="flex justify-between px-4 py-2 text-xs  border-b  dark:border-slate-700">
+        <div className="w-8 text-green-500">#</div>
+        <div className="flex-1 text-green-500">Team</div>
+        <div className="w-12 text-right text-green-500">Pts</div>
       </div>
 
       {standings.map((row, idx) => (
         <div
           key={row.team?.id ?? idx}
-          className="flex items-center justify-between px-4 py-2 border-b border-slate-100 dark:border-slate-700"
+          className="flex items-center justify-between px-4 py-2 border-b border-slate-700"
         >
           <div className="w-8 text-sm text-white">{row.rank}</div>
           <div className="flex-1 flex items-center gap-3">
@@ -185,6 +212,72 @@ const StandingsTable = React.memo(({ standings }) => {
     </div>
   );
 });
+
+const EventsList = ({ events, colors }) => {
+  if (!events || events.length === 0)
+    return (
+      <h1 style={{ color: colors.subText, textAlign: "center", marginTop: 20 }}>
+        No events available.
+      </h1>
+    );
+
+  return (
+    <div style={{ marginTop: 10 }}>
+      {events.map((e, idx) => {
+        const icon = getEventIcon(e.type, e.detail);
+
+        const minute = e.time ? `${e.time}'` : "";
+        const player = e.player || "Unknown Player";
+        const assist = e.assist ? ` (Assist: ${e.assist})` : "";
+        const cardReason = e.type === "Card" ? ` — ${e.detail}` : "";
+
+        const subText =
+          e.type === "subst"
+            ? `${player} ↦ ${e.assist || "Player In"}`
+            : null;
+
+        // 🎨 FIX: Apply default yellow/red colors ONLY for card icons
+        const isYellow = e.type === "Card" && e.detail === "Yellow Card";
+        const isRed = e.type === "Card" && e.detail === "Red Card";
+
+        const iconStyle = {
+          fontSize: 20,
+          marginRight: 8,
+          color: isYellow ? "#FFD700" : isRed ? "#FF0000" : "inherit",
+        };
+
+        return (
+          <div
+            key={idx}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 10,
+              marginBottom: 10,
+              padding: "10px 12px",
+              backgroundColor: colors.card,
+              borderRadius: 8,
+            }}
+          >
+            <h2 style={{ width: 40, color: colors.accent, fontWeight: "bold" }}>
+              {minute}
+            </h2>
+
+            {/* FIXED: Card icons now have correct colors */}
+            <span style={iconStyle}>{icon}</span>
+
+            <div style={{ color: colors.text, fontSize: 14 }}>
+              {e.type === "subst"
+                ? subText
+                : `${player}${assist}${cardReason}`}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
 
 
 export default function Livescore() {
@@ -343,58 +436,69 @@ const [isToday, setIsToday] = useState(true);
     setTimeout(() => setSelectedFixture(f), 50);
   }, []);
 
-  const loadDetail = useCallback(
-  async (tabKey) => {
-    if (!selectedFixture) return;
+  const loadDetail = useCallback(async (tabKey) => {
+  if (!selectedFixture) return;
+  setDetailTab(tabKey);
 
-    setDetailTab(tabKey);
+  // If cached, use it
+  if (detailCache[tabKey]) {
+    setDetailData(detailCache[tabKey]);
+    return;
+  }
 
-    // use functional read to avoid stale closure AND avoid triggering re-creation
-    setDetailCache((prev) => {
-      if (prev[tabKey]) {
-        setDetailData(prev[tabKey]);
-        return prev;
-      }
-      return prev;
-    });
+  setDetailLoading(true);
 
-    if (detailCache[tabKey]) return;
+  try {
+    const fixtureId = selectedFixture.id;
+    let res = null;
 
-    setDetailLoading(true);
+    if (tabKey === "lineups") {
+      res = await getLineups(fixtureId, sport);
+    } 
+    else if (tabKey === "h2h") {
+      res = await getHeadToHead(
+        selectedFixture.homeTeam?.id,
+        selectedFixture.awayTeam?.id,
+        sport
+      );
+    } 
+    else if (tabKey === "stats") {
+      res = await getStats(fixtureId, sport);
+    } 
+    else if (tabKey === "predictions") {
+      res = await getPredictions(fixtureId, sport);
+    } 
+    else if (tabKey === "standings") {
+      res = await getStandingsByFixture(selectedFixture, sport);
+    } 
+    else if (tabKey === "events") {
+      res = await getEvents(fixtureId, sport);
 
-    try {
-      const fixtureId = selectedFixture.id;
-      let res = null;
+      // ✅ IMPORTANT — RAW EVENTS LOG   
+      // console.log("RAW EVENTS RESPONSE ===>", res);
 
-      if (tabKey === "lineups") {
-        res = await getLineups(fixtureId, sport);
-      } else if (tabKey === "h2h") {
-        res = await getHeadToHead(
-          selectedFixture.homeTeam?.id,
-          selectedFixture.awayTeam?.id,
-          sport
-        );
-      } else if (tabKey === "stats") {
-        res = await getStats(fixtureId, sport);
-      } else if (tabKey === "predictions") {
-        res = await getPredictions(fixtureId, sport);
-      } else if (tabKey === "standings") {
-        res = await getStandingsByFixture(selectedFixture, sport);
-        
+      // If your API returns events inside response[0].events:
+      const parsedEvents =
+        res?.response?.[0]?.events ??
+        res?.events ?? // in case your wrapper returns { events: [...] }
+        res;
 
-      }
+      // console.log("PARSED EVENTS ARRAY ===>", parsedEvents);
 
-      setDetailCache((prev) => ({ ...prev, [tabKey]: res }));
-      setDetailData(res);
-    } catch (e) {
-      console.error("loadDetail", e);
-      setDetailData(null);
-    } finally {
-      setDetailLoading(false);
+      // Save parsed events instead of raw response
+      setDetailCache((prev) => ({ ...prev, [tabKey]: parsedEvents }));
+      setDetailData(parsedEvents);
+      return; // stop here because events already handled
     }
-  },
-  [selectedFixture, sport] // ❗ NO detailCache here
-);
+
+    // Default (lineups, h2h, stats, standings, predictions)
+    setDetailCache((prev) => ({ ...prev, [tabKey]: res }));
+    setDetailData(res);
+
+  } finally {
+    setDetailLoading(false);
+  }
+}, [selectedFixture, sport, detailCache]);
 
 
   useEffect(() => {
@@ -616,7 +720,7 @@ const [isToday, setIsToday] = useState(true);
               </div>
 
               <div className="flex gap-2 p-3">
-                {['lineups','h2h','stats','predictions','standings'].map((d) => (
+                {['lineups','h2h','stats','predictions','standings','events'].map((d) => (
                   <button key={d} onClick={() => loadDetail(d)} className={`flex-1 text-xs max-md:text-[8px] py-1 rounded-lg ${detailTab === d ? 'bg-emerald-600 text-white' : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-200'}`}>
                     {d.toUpperCase()}
                   </button>
@@ -654,12 +758,19 @@ const [isToday, setIsToday] = useState(true);
                           {team.stats?.map((s, j) => <div key={j} className="text-sm text-white">{s.type}: {s.value}</div>)}
                         </div>
                       ))
+                      
                     ) : detailTab === 'predictions' && detailData ? (
                       <div>
                         <div className="text-sm text-white">Winner: {detailData.winner}</div>
                         <div className="text-sm text-white">Advice: {detailData.advice}</div>
                         <div className="text-emerald-600">Home {detailData.percent?.home} | Draw {detailData.percent?.draw} | Away {detailData.percent?.away}</div>
                       </div>
+                     ) : detailTab === 'events' ? (
+  // <EventsList events={detailData}  />
+  <EventsList events={detailData} colors={defaultColors} />
+
+
+
                     ) : detailTab === 'standings' && Array.isArray(detailData) && detailData.length > 0 ? (
                       <StandingsTable standings={detailData} />
                     ) : (
@@ -670,6 +781,8 @@ const [isToday, setIsToday] = useState(true);
                   !detailLoading && <div className="text-center text-slate-500">No data available.</div>
                 )}
               </div>
+              
+
             </div>
           </div>
         )}

@@ -14,13 +14,13 @@ const formatDate = (date) => {
 }
 
 /* ----------------------------- Gossip Card ----------------------------- */
-const GossipCard = memo(({ article }) => {
+const GossipCard = memo(({ article, featured = false }) => {
   const router = useRouter()
   return (
     <div
       onClick={() => router.push(`/detailsArticle/${article.id}`)}
       style={{
-        backgroundColor: '#fff',
+        backgroundColor: '#e0f1e3ff',
         borderRadius: 15,
         overflow: 'hidden',
         cursor: 'pointer',
@@ -38,8 +38,13 @@ const GossipCard = memo(({ article }) => {
             : '/defaultImage.png'
         }
         alt={article.title}
-        style={{ width: '100%', height: 200, objectFit: 'cover' }}
+        style={{
+          width: '100%',
+          height: featured ? 500 : 200, // now works
+          objectFit: 'cover',
+        }}
       />
+
       <div style={{ padding: 12 }}>
         <h3
           style={{
@@ -52,10 +57,11 @@ const GossipCard = memo(({ article }) => {
             WebkitLineClamp: 2,
             WebkitBoxOrient: 'vertical',
           }}
-          className='font-bold'
+          className="font-bold"
         >
           {article.title}
         </h3>
+
         <p
           style={{
             color: '#333',
@@ -69,7 +75,8 @@ const GossipCard = memo(({ article }) => {
         >
           {article.content}
         </p>
-        <p style={{ color: 'green', fontSize: 12 }} className='font-bold'>
+
+        <p style={{ color: 'green', fontSize: 12 }} className="font-bold">
           {article.createdAt?.toDate ? formatDate(article.createdAt.toDate()) : 'Unknown Date'}
         </p>
       </div>
@@ -77,19 +84,40 @@ const GossipCard = memo(({ article }) => {
   )
 })
 
+
 /* ----------------------------- Gossip Page ----------------------------- */
 const GossipPage = () => {
-  const [articles, setArticles] = useState([])
+  const [mainArticle, setMainArticle] = useState(null)
+  const [otherArticles, setOtherArticles] = useState([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const q = query(collection(db, 'articles'), orderBy('createdAt', 'desc'))
+
     const unsubscribe = onSnapshot(q, (snapshot) => {
-      const fetchedArticles = snapshot.docs.map((doc) => ({
+      const fetched = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }))
-      setArticles(fetchedArticles)
+
+      /* ---------------------------------------------
+         FIND MOST RECENT TIPnGOAL ARTICLE
+      --------------------------------------------- */
+      const tipArticles = fetched.filter((item) =>
+        item.title?.toLowerCase().includes('tipngoal')
+      )
+
+      const main = tipArticles.length > 0 ? tipArticles[0] : null
+
+      /* ---------------------------------------------
+         OTHER ARTICLES (excluding main one)
+      --------------------------------------------- */
+      const others = main
+        ? fetched.filter((item) => item.id !== main.id)
+        : fetched
+
+      setMainArticle(main)
+      setOtherArticles(others)
       setLoading(false)
     })
 
@@ -97,7 +125,7 @@ const GossipPage = () => {
   }, [])
 
   return (
-    <div style={{  minHeight: '100vh', padding: 20 }}>
+    <div style={{ minHeight: '100vh', padding: 20 }}>
       <h1
         style={{
           textAlign: 'center',
@@ -109,27 +137,49 @@ const GossipPage = () => {
           marginBottom: 40,
         }}
       >
-        Football Hub
+        Sport Hub
       </h1>
 
       {loading ? (
-        <p style={{ textAlign: 'center', color: '#bbb', marginTop: 40 }}>Loading gossip...</p>
-      ) : articles.length > 0 ? (
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-            gap: 20,
-          }}
-        >
-          {articles.map((article) => (
-            <GossipCard key={article.id} article={article} />
-          ))}
-        </div>
-      ) : (
-        <p style={{ textAlign: 'center', color: '#777', marginTop: 40 }}>
-          No gossip yet... Be the first to spill!
+        <p style={{ textAlign: 'center', color: '#bbb', marginTop: 40 }}>
+          Loading gossip...
         </p>
+      ) : (
+        <>
+          {/* ---------------- MAIN TIPNGOAL FEATURED ARTICLE ---------------- */}
+          {mainArticle && (
+            <div style={{ marginBottom: 40 }}>
+              {/* <h2
+                style={{
+                  color: '#1dbf73',
+                  fontSize: 26,
+                  marginBottom: 16,
+                  textAlign: 'center',
+                }}
+              >
+                Featured — TIPnGOAL
+              </h2> */}
+              <GossipCard article={mainArticle} featured={true} /> 
+            </div>
+          )}
+
+          {/* ---------------- OTHER ARTICLES GRID ---------------- */}
+          <div
+  style={{
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+    justifyItems: 'center',
+    maxWidth: 1200,
+    margin: '0 auto',  // FULL GRID CENTERED
+    gap: 20,
+  }}
+>
+
+            {otherArticles.map((article) => (
+              <GossipCard key={article.id} article={article} />
+            ))}
+          </div>
+        </>
       )}
     </div>
   )

@@ -312,6 +312,38 @@ export const getFixturesByDate = async (date, sport = "football") => {
   }
 };
 
+// ✅ FIXTURE EVENTS (GOALS, CARDS, VAR, SUBS)
+export const getEvents = async (fixtureId, sport = "football") => {
+  // Only football supports events
+  if (sport !== "football") return [];
+
+  const api = getApi(sport);
+
+  try {
+    const res = await api.get(`/fixtures/events`, {
+      params: { fixture: fixtureId },
+    });
+
+    const events = res.data?.response || [];
+
+    // Format events into clean readable structure
+    return events.map((ev) => ({
+      time: ev.time?.elapsed || 0,
+      extra: ev.time?.extra || null,
+
+      team: ev.team?.name || "Unknown Team",
+      player: ev.player?.name || null,
+      assist: ev.assist?.name || null,
+
+      type: ev.type,         // "Goal", "Card", "subst", "Var"
+      detail: ev.detail,     // "Normal Goal", "Penalty", "Yellow Card", etc.
+      comments: ev.comments, // sometimes null
+    }));
+  } catch (err) {
+    console.error("getEvents error:", err.response?.data || err.message);
+    return [];
+  }
+};
 
 
 // exports
@@ -324,5 +356,6 @@ export default {
   getStats,
   getPredictions,
   getStandingsByFixture,
-  groupFixturesByLeague
+  groupFixturesByLeague,
+  getEvents
 };
