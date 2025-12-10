@@ -142,7 +142,7 @@ const GossipPage = () => {
 
       {loading ? (
         <p style={{ textAlign: 'center', color: '#bbb', marginTop: 40 }}>
-          Loading gossip...
+          Loading Sport Hub...
         </p>
       ) : (
         <>
