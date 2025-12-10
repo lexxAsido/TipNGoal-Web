@@ -14,8 +14,11 @@ const formatDate = (date) => {
 }
 
 /* ----------------------------- Gossip Card ----------------------------- */
+/* ----------------------------- Gossip Card ----------------------------- */
 const GossipCard = memo(({ article, featured = false }) => {
   const router = useRouter()
+  const isTip = article.title?.toLowerCase().includes('tipngoal')
+
   return (
     <div
       onClick={() => router.push(`/detailsArticle/${article.id}`)}
@@ -27,8 +30,35 @@ const GossipCard = memo(({ article, featured = false }) => {
         boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
         display: 'flex',
         flexDirection: 'column',
+        position: 'relative', // 🔹 needed for badge absolute positioning
       }}
     >
+      {/* TIPnGOAL BADGE */}
+      {featured && isTip && (
+        <div
+          style={{
+            position: 'absolute',
+            top: 12,
+            left: 12,
+            backgroundColor: '#22c55e',
+            padding: '6px 12px',
+            borderRadius: 8,
+            zIndex: 10,
+          }}
+        >
+          <h1
+            style={{
+              margin: 0,
+              fontSize: 16,
+              fontWeight: 'bold',
+              color: '#fff',
+            }}
+          >
+            TIPnGOAL 🔥
+          </h1>
+        </div>
+      )}
+
       <img
         src={
           article.mainImage
@@ -40,7 +70,7 @@ const GossipCard = memo(({ article, featured = false }) => {
         alt={article.title}
         style={{
           width: '100%',
-          height: featured ? 500 : 200, // now works
+          height: featured ? 500 : 200,
           objectFit: 'cover',
         }}
       />
@@ -83,6 +113,7 @@ const GossipCard = memo(({ article, featured = false }) => {
     </div>
   )
 })
+
 
 
 /* ----------------------------- Gossip Page ----------------------------- */
