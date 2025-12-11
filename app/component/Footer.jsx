@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { FaInstagram, FaSquareXTwitter, FaWhatsapp } from "react-icons/fa6";
+import { FaFacebook, FaInstagram, FaSquareXTwitter, FaWhatsapp, FaYoutube } from "react-icons/fa6";
 import { CgMail } from "react-icons/cg";
 
 const Footer = () => {
@@ -34,7 +34,7 @@ const Footer = () => {
             <CgMail color="green"/>
           <p className=" text-gray-400 ">
             {/* <span className="inline-block mr-2 text-green-400">📧</span> */}
-            tipngoal@gmail.com
+            support@tipngoal.com
           </p>
           </span>
         </div>
@@ -82,12 +82,19 @@ const Footer = () => {
             <Link href="https://x.com" target="_blank">
               <FaSquareXTwitter className="text-2xl hover:text-green-400 transition-colors" />
             </Link>
-            <Link href="https://instagram.com" target="_blank">
-              <FaInstagram className="text-2xl hover:text-green-400 transition-colors" />
+            <Link href="https://www.instagram.com/tipngoal?igsh=b21iODV2NjhvaDNx" target="_blank">
+              <FaInstagram className="text-2xl hover:text-pink-400 transition-colors" />
             </Link>
-            <Link href="https://whatsapp.com" target="_blank">
+            {/* <Link href="https://whatsapp.com" target="_blank">
               <FaWhatsapp className="text-2xl hover:text-green-400 transition-colors" />
-            </Link>
+            </Link> */}
+            <Link href="https://www.facebook.com/share/1U7pMjvraT/?mibextid=wwXIfr" target="_blank">
+  <FaFacebook className="text-2xl hover:text-blue-500 transition-colors" />
+</Link>
+
+<Link href="https://www.youtube.com/@tipngoal" target="_blank">
+  <FaYoutube className="text-2xl hover:text-red-500 transition-colors" />
+</Link>
           </div>
 
           <h4 className="text-green-400 font-semibold mb-3">Get the App</h4>

@@ -33,6 +33,8 @@ const TOP_LEAGUES = [
   "Germany - Bundesliga",
   "France - Ligue 1",
   "Uefa Champions League",
+  "UEFA Europa Conference League",
+  "Uefa Europa League"
 ];
 
 const defaultColors = {

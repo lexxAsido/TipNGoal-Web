@@ -12,8 +12,41 @@ const formatDate = (date) => {
   const options = { year: 'numeric', month: 'short', day: 'numeric' }
   return d.toLocaleDateString('en-US', options)
 }
+const keywords = [
+  "Player Biography",
+  "Player Information",
+];
 
-/* ----------------------------- Gossip Card ----------------------------- */
+// 🔍 Highlight function (React Web / Next.js)
+const highlightKeywords = (text) => {
+  if (!text) return "";
+
+  const escapeRegex = (str) =>
+    str.replace(/[.*+?^${}()|[\]\\-]/g, "\\$&");
+
+  const regex = new RegExp(
+    `(${keywords.map(escapeRegex).join("|")})`,
+    "gi"
+  );
+
+  return text.split(regex).map((part, index) => {
+    const match = keywords.find(
+      (kw) => kw.toLowerCase() === part.toLowerCase()
+    );
+
+    if (match) {
+      return (
+        <span key={index} className="font-bold text-green-500">
+          {part}
+        </span>
+      );
+    }
+
+    return <span key={index}>{part}</span>;
+  });
+};
+
+
 /* ----------------------------- Gossip Card ----------------------------- */
 const GossipCard = memo(({ article, featured = false }) => {
   const router = useRouter()
@@ -41,7 +74,7 @@ const GossipCard = memo(({ article, featured = false }) => {
             position: 'absolute',
             top: 12,
             left: 12,
-            backgroundColor: '#22c55e',
+            backgroundColor: 'black',
             padding: '6px 12px',
             borderRadius: 8,
             zIndex: 10,
@@ -55,7 +88,7 @@ const GossipCard = memo(({ article, featured = false }) => {
               color: '#fff',
             }}
           >
-            TIPnGOAL 🔥
+            TIP<span className='text-green-500'>N</span>GOAL 🔥
           </h1>
         </div>
       )}
@@ -95,18 +128,19 @@ const GossipCard = memo(({ article, featured = false }) => {
         </h3>
 
         <p
-          style={{
-            color: '#333',
-            fontSize: 14,
-            display: '-webkit-box',
-            WebkitLineClamp: 5,
-            WebkitBoxOrient: 'vertical',
-            overflow: 'hidden',
-            marginBottom: 8,
-          }}
-        >
-          {article.content}
-        </p>
+  style={{
+    color: "#333",
+    fontSize: 14,
+    display: "-webkit-box",
+    WebkitLineClamp: 5,
+    WebkitBoxOrient: "vertical",
+    overflow: "hidden",
+    marginBottom: 8,
+  }}
+>
+  {highlightKeywords(article.content)}
+</p>
+
 
         <p style={{ color: 'green', fontSize: 12 }} className="font-bold">
           {article.createdAt?.toDate ? formatDate(article.createdAt.toDate()) : 'Unknown Date'}

@@ -1,7 +1,7 @@
 "use client"
 import React from 'react';
 import { FaCopyright, FaInstagram, FaSquareXTwitter } from "react-icons/fa6";
-import { FaWhatsapp } from "react-icons/fa";
+import { FaWhatsapp, FaFacebook, FaYoutube } from "react-icons/fa";
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from "framer-motion";
@@ -52,10 +52,10 @@ const contact = () => {
               href="mailto:lexxtech24@gmail.com"
               className="text-green-500 hover:underline"
             >
-              tipngoal@gmail.com
+              support@tipngoal.com
             </a>
           </li>
-          <li>
+          {/* <li>
             <span className="font-bold max-md:text-sm">Phone:</span>{' '}
             <a
               href="tel:+2348107272019"
@@ -63,9 +63,9 @@ const contact = () => {
             >
               +234 801 234 5678
             </a>
-          </li>
+          </li> */}
           <li className='max-md:text-sm'>
-            <span className="font-bold font-sans">Address:</span> TIPNGOAL Headquarters, Odejayi Street, Surulere Lagos, Nigeria
+            <span className="font-bold font-sans">Address:</span> TIPNGOAL Headquarters, Mark Davidson Street, Okota Lagos, Nigeria
           </li>
         </ul>
       </div>
@@ -73,15 +73,23 @@ const contact = () => {
         <div className="mt-8 text-center text-gray-600 ">
           <p className='max-md:text-sm'>Or reach us directly on social media:</p>
           <div className="flex md:justify-center gap-4 mt-5">
-            <Link href="https://x.com" target="_blank">
-              <FaSquareXTwitter className="text-2xl hover:text-green-400 transition-colors" />
+            <Link href="https://x.com/tipngoal?s=21" target="_blank">
+              <FaSquareXTwitter className="text-2xl hover:text-green-500 transition-colors" />
             </Link>
-            <Link href="https://instagram.com" target="_blank">
-              <FaInstagram className="text-2xl hover:text-green-400 transition-colors" />
+            <Link href="https://www.instagram.com/tipngoal?igsh=b21iODV2NjhvaDNx" target="_blank">
+              <FaInstagram className="text-2xl hover:text-pink-400 transition-colors" />
             </Link>
-            <Link href="https://whatsapp.com" target="_blank">
+            <Link href="https://www.facebook.com/share/1U7pMjvraT/?mibextid=wwXIfr" target="_blank">
+  <FaFacebook className="text-2xl hover:text-blue-500 transition-colors" />
+</Link>
+
+<Link href="https://www.youtube.com/@tipngoal" target="_blank">
+  <FaYoutube className="text-2xl hover:text-red-500 transition-colors" />
+</Link>
+
+            {/* <Link href="https://whatsapp.com" target="_blank">
               <FaWhatsapp className="text-2xl hover:text-green-400 transition-colors" />
-            </Link>
+            </Link> */}
           </div>
           <p className="mt-4 max-md:text-sm">We look forward to assisting you!</p>
         </div>

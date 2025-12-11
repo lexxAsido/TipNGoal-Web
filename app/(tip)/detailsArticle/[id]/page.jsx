@@ -12,6 +12,38 @@ const formatDate = (date) => {
   const options = { year: 'numeric', month: 'short', day: 'numeric' }
   return d.toLocaleDateString('en-US', options)
 }
+const keywords = [
+  "Player Biography",
+  "Player Information",
+];
+
+const highlightKeywords = (text) => {
+  if (!text) return "";
+
+  const escapeRegex = (str) =>
+    str.replace(/[.*+?^${}()|[\]\\-]/g, "\\$&");
+
+  const regex = new RegExp(
+    `(${keywords.map(escapeRegex).join("|")})`,
+    "gi"
+  );
+
+  return text.split(regex).map((part, index) => {
+    const match = keywords.find(
+      (kw) => kw.toLowerCase() === part.toLowerCase()
+    );
+
+    if (match) {
+      return (
+        <span key={index} className="font-bold text-white text-lg underline decoration-green-500 underline-offset-8">
+          {part}
+        </span>
+      );
+    }
+
+    return <span key={index}>{part}</span>;
+  });
+};
 
 /* ----------------------------- YT Extract Helper ----------------------------- */
 const extractYouTubeID = (url) => {
@@ -152,14 +184,22 @@ export default function ArticleDetailsPage() {
       )}
 
       {/* CONTENT */}
-      <p style={{ fontSize: 18, lineHeight: 1.6, whiteSpace: 'pre-line', marginBottom: 40 }}>
-        {article.content}
-      </p>
+      <p
+  style={{
+    fontSize: 18,
+    lineHeight: 1.6,
+    whiteSpace: "pre-line",
+    marginBottom: 40,
+  }}
+>
+  {highlightKeywords(article.content)}
+</p>
+
 
       {/* YOUTUBE PREVIEW */}
       {youTubeID && (
         <div style={{ marginBottom: 40 }}>
-          <h3 style={{ marginBottom: 10 }}>Video:</h3>
+          <h3 className='mb-10 font-bold text-white underline decoration-green-500 underline-offset-8 text-lg'>Player's Video:</h3>
           <iframe
             width="100%"
             height="350"
@@ -169,6 +209,30 @@ export default function ArticleDetailsPage() {
           ></iframe>
         </div>
       )}
+
+
+<div className="mt-10 bg-gray-900 p-6 rounded-xl text-center">
+  <h2 className="text-white text-xl font-bold mb-4">
+    Reach out to TIPNGOAL to feature your player profile across our platforms by sending an email to{" "}
+    <a
+      href="mailto:support@tipngoal.com"
+      className="text-green-400 underline hover:text-green-300"
+    >
+      support@tipngoal.com
+    </a>
+    .
+    <br />
+    Stay connected and don’t forget to subscribe to our{" "}
+    <a
+      href="https://www.youtube.com/@tipngoal"
+      target="_blank"
+      className="text-green-400 underline hover:text-green-300"
+    >
+      YouTube channel
+    </a>{" "}
+    for exclusive updates and content.
+  </h2>
+</div>
 
   {/* BACK BUTTON */}
 <div className="flex justify-end">
